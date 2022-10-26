@@ -24,6 +24,9 @@ public class EJ2CrearBase {
 			/* 1. cargo dinamicamente el driver de MySQL */
 			Class.forName(driver);
 			
+			
+			
+			
 			Connection con = DriverManager.getConnection(url, usuario, password);
 			
 			/* Creo un Statement para crear la base de datos en el servidor */
