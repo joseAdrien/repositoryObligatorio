@@ -1,4 +1,4 @@
-package logicaPersistencia.accesoBD;
+package persistencia.accesoBD;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import logicaPersistencia.valueObjects.*;
+import logica.valueObjects.*;
 
 public class AccesoBD {
 	

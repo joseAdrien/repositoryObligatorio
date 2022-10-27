@@ -13,8 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import grafica.controladores.NuevoDuenioControlador;
-import logicaPersistencia.excepciones.ConectionException;
-import logicaPersistencia.excepciones.nuevoDuenioException;
+import logica.excepciones.ConectionException;
+import logica.excepciones.nuevoDuenioException;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

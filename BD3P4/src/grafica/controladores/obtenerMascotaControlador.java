@@ -16,14 +16,14 @@ import grafica.ventanas.listarDueniosVentana;
 import grafica.ventanas.listarMascotasDuenioVentana;
 import grafica.ventanas.nuevoDuenioVentana;
 import grafica.ventanas.obtenerMascotaVentana;
-import logicaPersistencia.IFachada;
-import logicaPersistencia.excepciones.ConectionException;
-import logicaPersistencia.excepciones.NoRelacionDueInsException;
-import logicaPersistencia.excepciones.noExisteDuenioException;
-import logicaPersistencia.excepciones.nuevoDuenioException;
-import logicaPersistencia.valueObjects.VODuenio;
-import logicaPersistencia.valueObjects.VOMascota;
-import logicaPersistencia.valueObjects.VOMascotaList;
+import logica.IFachada;
+import logica.excepciones.ConectionException;
+import logica.excepciones.NoRelacionDueInsException;
+import logica.excepciones.noExisteDuenioException;
+import logica.excepciones.nuevoDuenioException;
+import logica.valueObjects.VODuenio;
+import logica.valueObjects.VOMascota;
+import logica.valueObjects.VOMascotaList;
 
 public class obtenerMascotaControlador {
 

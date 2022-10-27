@@ -1,4 +1,4 @@
-package logicaPersistencia.accesoBD;
+package persistencia.accesoBD;
 
 public class Consultas {
 

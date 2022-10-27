@@ -14,10 +14,10 @@ import java.util.Properties;
 
 import grafica.ventanas.listarDueniosVentana;
 import grafica.ventanas.nuevoDuenioVentana;
-import logicaPersistencia.IFachada;
-import logicaPersistencia.excepciones.ConectionException;
-import logicaPersistencia.excepciones.nuevoDuenioException;
-import logicaPersistencia.valueObjects.VODuenio;
+import logica.IFachada;
+import logica.excepciones.ConectionException;
+import logica.excepciones.nuevoDuenioException;
+import logica.valueObjects.VODuenio;
 
 public class listarDueniosControlador {
 

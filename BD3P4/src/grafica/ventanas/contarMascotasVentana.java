@@ -15,11 +15,11 @@ import javax.swing.JTextField;
 import grafica.controladores.contarMascotasControlador;
 import grafica.controladores.listarMascotasDuenioControlador;
 import grafica.controladores.obtenerMascotaControlador;
-import logicaPersistencia.excepciones.ConectionException;
-import logicaPersistencia.excepciones.NoRelacionDueInsException;
-import logicaPersistencia.excepciones.noExisteDuenioException;
-import logicaPersistencia.valueObjects.VOMascota;
-import logicaPersistencia.valueObjects.VOMascotaList;
+import logica.excepciones.ConectionException;
+import logica.excepciones.NoRelacionDueInsException;
+import logica.excepciones.noExisteDuenioException;
+import logica.valueObjects.VOMascota;
+import logica.valueObjects.VOMascotaList;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

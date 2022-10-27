@@ -1,15 +1,15 @@
-package logicaPersistencia.excepciones;
+package logica.excepciones;
 
-public class nuevoDuenioException extends Exception{
+public class NoRelacionDueInsException extends Exception{
 	
 	//Agrego esto automáticamente
 	private static final long serialVersionUID = 1L;
 	
 	private String mensaje;
 	
-	public nuevoDuenioException ()
+	public NoRelacionDueInsException ()
 	{
-		this.mensaje = "Ya existe el Dueño.";
+		this.mensaje = "La inscripción no pertenece a ese Dueño.";
 	}
 	public String getMensaje () 
 	{

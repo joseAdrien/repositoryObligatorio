@@ -13,9 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import grafica.controladores.NuevaMascotaControlador;
-import logicaPersistencia.excepciones.ConectionException;
-import logicaPersistencia.excepciones.noExisteDuenioException;
-import logicaPersistencia.valueObjects.VOMascota;
+import logica.excepciones.ConectionException;
+import logica.excepciones.noExisteDuenioException;
+import logica.valueObjects.VOMascota;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

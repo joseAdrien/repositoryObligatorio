@@ -12,10 +12,10 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import grafica.ventanas.nuevaMascotaVentana;
-import logicaPersistencia.IFachada;
-import logicaPersistencia.excepciones.ConectionException;
-import logicaPersistencia.excepciones.noExisteDuenioException;
-import logicaPersistencia.valueObjects.VOMascota;
+import logica.IFachada;
+import logica.excepciones.ConectionException;
+import logica.excepciones.noExisteDuenioException;
+import logica.valueObjects.VOMascota;
 
 //Clase 
 public class NuevaMascotaControlador {

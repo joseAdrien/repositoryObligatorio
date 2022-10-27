@@ -18,8 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import grafica.controladores.borrarDuenioControlador;
-import logicaPersistencia.excepciones.ConectionException;
-import logicaPersistencia.excepciones.noExisteDuenioException;
+import logica.excepciones.ConectionException;
+import logica.excepciones.noExisteDuenioException;
 
 public class borrarDuenioVentana {
 

@@ -1,4 +1,4 @@
-package logicaPersistencia.excepciones;
+package logica.excepciones;
 
 public class ConectionException extends Exception{
 	

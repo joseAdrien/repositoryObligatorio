@@ -1,16 +1,15 @@
-package logicaPersistencia;
+package logica;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.List;
 
-import logicaPersistencia.excepciones.ConectionException;
-import logicaPersistencia.excepciones.NoRelacionDueInsException;
-import logicaPersistencia.excepciones.noExisteDuenioException;
-import logicaPersistencia.excepciones.nuevoDuenioException;
-import logicaPersistencia.valueObjects.*;
-//import logicaPersistencia.valueObjects.VOMascotaList;
+import logica.excepciones.ConectionException;
+import logica.excepciones.NoRelacionDueInsException;
+import logica.excepciones.noExisteDuenioException;
+import logica.excepciones.nuevoDuenioException;
+import logica.valueObjects.*;
 
 public interface IFachada extends Remote
 {

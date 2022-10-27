@@ -1,4 +1,4 @@
-package logicaPersistencia;
+package logica;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,9 +10,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 
-import logicaPersistencia.excepciones.*;
-import logicaPersistencia.valueObjects.*;
-import logicaPersistencia.accesoBD.AccesoBD;
+import logica.excepciones.*;
+import logica.valueObjects.*;
+import persistencia.accesoBD.AccesoBD;
 
 public class Fachada extends UnicastRemoteObject implements IFachada{
 	

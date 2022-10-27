@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.Properties;
 
 import grafica.ventanas.listarMascotasDuenioVentana;
-import logicaPersistencia.IFachada;
-import logicaPersistencia.excepciones.ConectionException;
-import logicaPersistencia.excepciones.noExisteDuenioException;
-import logicaPersistencia.valueObjects.VOMascotaList;
+import logica.IFachada;
+import logica.excepciones.ConectionException;
+import logica.excepciones.noExisteDuenioException;
+import logica.valueObjects.VOMascotaList;
 
 public class listarMascotasDuenioControlador {
 

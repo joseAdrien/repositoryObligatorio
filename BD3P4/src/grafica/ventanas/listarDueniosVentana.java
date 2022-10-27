@@ -15,9 +15,9 @@ import javax.swing.JTextField;
 
 import grafica.controladores.borrarDuenioControlador;
 import grafica.controladores.listarDueniosControlador;
-import logicaPersistencia.excepciones.ConectionException;
-import logicaPersistencia.excepciones.noExisteDuenioException;
-import logicaPersistencia.valueObjects.VODuenio;
+import logica.excepciones.ConectionException;
+import logica.excepciones.noExisteDuenioException;
+import logica.valueObjects.VODuenio;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

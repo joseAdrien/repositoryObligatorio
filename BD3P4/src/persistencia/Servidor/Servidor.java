@@ -1,5 +1,5 @@
 //Package
-package logicaPersistencia.Servidor;
+package persistencia.Servidor;
 
 //Importación de clases
 import java.io.FileInputStream;
@@ -15,8 +15,8 @@ import java.util.Properties;
 
 import javax.swing.JOptionPane;
 
-import logicaPersistencia.Fachada;
-import logicaPersistencia.excepciones.PropertiesException;
+import logica.Fachada;
+import logica.excepciones.PropertiesException;
 
 //Clase Servidor
 public class Servidor {
