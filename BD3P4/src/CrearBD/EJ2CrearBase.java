@@ -23,7 +23,7 @@ public class EJ2CrearBase {
 			
 			/* 1. cargo dinamicamente el driver de MySQL */
 			Class.forName(driver);
-			//test subida git
+			//test subida git despues de eliminar la key
 			
 			
 			
