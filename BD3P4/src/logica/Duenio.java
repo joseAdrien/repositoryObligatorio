@@ -1,5 +1,5 @@
 package logica;
 
-public class Duenio {
+public class Duenio {//ALE
 
 }

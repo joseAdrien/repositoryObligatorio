@@ -1,5 +1,5 @@
 package logica;
 
-public class Mascota {
+public class Mascota { //ALE
 
 }

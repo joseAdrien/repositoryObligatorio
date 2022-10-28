@@ -1,5 +1,5 @@
 package persistencia.daos;
 
-public class DAODuenios {
+public class DAODuenios { //Lautaro
 
 }

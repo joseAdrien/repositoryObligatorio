@@ -1,5 +1,5 @@
 package persistencia.consultas;
 
-public class Consultas {
+public class Consultas {//JOSE
 
 }
