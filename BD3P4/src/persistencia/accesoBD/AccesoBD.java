@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import logica.valueObjects.*;
+import persistencia.consultas.Consultas;
 
 public class AccesoBD {
 	
