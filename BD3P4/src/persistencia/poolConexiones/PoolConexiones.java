@@ -18,7 +18,7 @@ public class PoolConexiones implements IPoolConexiones {
 	private String user;
 	private String password;
 	private int nivelTransaccionalidad;
-	private Conexion[] conexiones;//FEDE es de Conexiones o de Iconexiones
+	private Conexion[] conexiones;
 	private int tamanio;
 	private int creadas;
 	private int tope;
@@ -59,36 +59,50 @@ public class PoolConexiones implements IPoolConexiones {
 	}
 
 	@Override
-	public IConexion obtenerConexion(boolean modifica) throws ConectionException {
-		if(hayConexiones()) {
+	public synchronized IConexion obtenerConexion(boolean modifica) throws ConectionException {
+		if(hayConexionesDisponibles()) {
 			return getConexion();
-		}else {
+		}else if(sePuedenCrearConecciones()){
 			return generarConexion();
+		}else {
+			return null;
+			//wait;
 		}
+		
 			
 	}
 
 	@Override
-	public void liberarConexion(IConexion conexion , boolean ok) {
+	public synchronized void liberarConexion(IConexion conexion , boolean ok) {
 		if(ok) {
-			//FEDE hacel roolback
+			//hacer el commit
+		else {
+			//hacer el roolback
 		}
+		 tope = tope ++;
+		 conexiones[tope]= (Conexion) conexion;
+		//despertar hilo
 		
 	}
+	
+	private boolean sePuedenCrearConecciones() {
+		return creadas < tamanio; 
+	}
 
-	private boolean hayConexiones() {
-		return creadas != 0;
+	private boolean hayConexionesDisponibles() {
+		return tope != 0;
 	}
 	
 	private IConexion getConexion() {
-		return conexiones[tope];
+		Conexion con = conexiones[tope];
+		tope = tope --;
+		return con;
 	}
 	
 	private IConexion generarConexion() throws ConectionException {
-		try {//FEDE debemos preguntar si llegamos al tope?
+		try {
 			IConexion con =  (IConexion) DriverManager.getConnection(url, user, password);
 			creadas = creadas ++;
-			conexiones[tope]= (Conexion) con;
 			tope = tope ++;
 			return con;
 		} catch (SQLException e) {
