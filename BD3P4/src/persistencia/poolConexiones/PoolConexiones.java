@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import logica.excepciones.ConectionException;
+import logica.excepciones.NotificadorPoolException;
 import logica.excepciones.PropertiesException;
 
 public class PoolConexiones implements IPoolConexiones {//JOSE
@@ -59,29 +60,42 @@ public class PoolConexiones implements IPoolConexiones {//JOSE
 	}
 
 	@Override
-	public synchronized IConexion obtenerConexion(boolean modifica) throws ConectionException {
+	public synchronized IConexion obtenerConexion(boolean modifica) throws ConectionException, NotificadorPoolException {
 		if(hayConexionesDisponibles()) {
 			return getConexion();
 		}else if(sePuedenCrearConecciones()){
 			return generarConexion();
 		}else {
-			return null;
-			//wait;
+			try {
+				this.wait();
+			} catch (InterruptedException e) {
+				throw new NotificadorPoolException();
+			}
 		}
+		return null;
 		
 			
 	}
 
 	@Override
-	public synchronized void liberarConexion(IConexion conexion , boolean ok) {
-		if(ok) {
-			//hacer el commit
-		else {
-			//hacer el roolback
-		}
-		 tope = tope ++;
-		 conexiones[tope]= (Conexion) conexion;
-		//despertar hilo
+	public synchronized void liberarConexion(IConexion conexion, boolean ok) throws ConectionException {
+		
+			try {
+				if(ok) {
+					((Conexion) conexion).getConexion().commit();
+				}else {
+					((Conexion) conexion).getConexion().rollback();
+				}
+				tope = tope ++;
+				conexiones[tope]= (Conexion) conexion;
+				this.notify();
+				
+			} catch (SQLException e) {
+				
+				throw new ConectionException();
+			}
+		
+		 
 		
 	}
 	
@@ -102,6 +116,7 @@ public class PoolConexiones implements IPoolConexiones {//JOSE
 	private IConexion generarConexion() throws ConectionException {
 		try {
 			IConexion con =  (IConexion) DriverManager.getConnection(url, user, password);
+			((Conexion) con).getConexion().setTransactionIsolation(nivelTransaccionalidad);
 			creadas = creadas ++;
 			tope = tope ++;
 			return con;
