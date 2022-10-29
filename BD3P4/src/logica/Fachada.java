@@ -13,42 +13,50 @@ import java.util.Properties;
 import logica.excepciones.*;
 import logica.valueObjects.*;
 import persistencia.accesoBD.AccesoBD;
+import persistencia.daos.DAOMascotas;
+import persistencia.poolConexiones.IConexion;
+import persistencia.poolConexiones.PoolConexiones;
 
-public class Fachada extends UnicastRemoteObject implements IFachada{
+public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 	
 	//Agrego esto automáticamente
 	private static final long serialVersionUID = 1L;
 	
-	private String driver;
-	private String url ;
-	private String usuario ;
-	private String password ;
+	
+	private PoolConexiones miPool;
+	private DAOMascotas miDaoMascotas;
 	
 	//Constructor
 	public Fachada () throws RemoteException, PropertiesException{
-		//Crear conexion a la base
-		
-		Properties p = new Properties();
-		String nomArchi = "Config/config.properties";
-		try {
-			p.load (new FileInputStream (nomArchi));
-			driver = p.getProperty("driver");
-			url = p.getProperty("url");
-			usuario = p.getProperty("usuario");
-			password = p.getProperty("password");
-		
-			/* 1. cargo dinamicamente el driver de MySQL */
-			Class.forName(driver);
-			/* 2. una vez cargado el driver, me conecto con la base de datos */
-		
-		} catch (IOException e){
-			throw new PropertiesException();
-		}catch(ClassNotFoundException e) {
-			throw new PropertiesException();
-		}
-		
+		 miPool = new PoolConexiones();
+		 miDaoMascotas = new DAOMascotas();
 	}
 	
+	
+	//Registrar una nueva mascota
+		public void nuevaMascota(int cedula, VOMascota mascota) throws SQLException, ConectionException, noExisteDuenioException, RemoteException{
+			
+				IConexion icon = null;
+				
+				icon = miPool.obtenerConexion(true);
+				try {
+				//verificar si existe el duenio (Duenio.isMember)
+				//obtener el duenio (duenio.find)
+				//pedir cantidad de mascotas del duenio, agregarle 1 y setear ese valor a mascota.numero inscripcion
+				//generar una instancia de mascoota
+				//llamara a duenio.guardarmascota ( mascota , conexion)
+				
+				}catch () {
+				  miPool.liberarConexion(icon, false);
+				}finally (){
+					miPool.liberarConexion(icon, true);
+				}
+		}
+				
+				
+				
+
+		
 	//Requerimientos
 	//Registrar un nuevo Dueño
 	
@@ -74,23 +82,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 	}
 	
 	
-	//Registrar una nueva mascota
-	public void nuevaMascota(int cedula, VOMascota mascota) throws SQLException, ConectionException, noExisteDuenioException, RemoteException{
-		Connection con = null;
-		try {
-			con = DriverManager.getConnection(url, usuario, password);
-			if(AccesoBD.existeDuenio(con, cedula)) {
-				AccesoBD.crearMascota(con, cedula, mascota);
-			}else {
-				throw new noExisteDuenioException();
-			}
-		}catch(SQLException e){
-			throw new ConectionException();
-		}finally {
-			System.out.println("cierro conexion");
-			con.close();
-		}
-	}
+	
 	
 	//Borrar dueño luego de borrar sus mascotas
 	public void borrarDuenioMascotas(int cedula) throws SQLException, ConectionException, RemoteException, noExisteDuenioException{

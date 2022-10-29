@@ -11,7 +11,7 @@ import java.util.Properties;
 import logica.excepciones.ConectionException;
 import logica.excepciones.PropertiesException;
 
-public class PoolConexiones implements IPoolConexiones {
+public class PoolConexiones implements IPoolConexiones {//JOSE
 	
 	private String driver;
 	private String url;

@@ -69,4 +69,14 @@ public class Consultas {
 	}
 	/* crea el texto de la consulta que devuelve la cantidad de mascotas de un dueño con raza ingresada*/
 
+	public String insback() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String largo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
