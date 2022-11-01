@@ -7,6 +7,7 @@ import java.util.List;
 
 import logica.excepciones.ConectionException;
 import logica.excepciones.NoRelacionDueInsException;
+import logica.excepciones.NotificadorPoolException;
 import logica.excepciones.noExisteDuenioException;
 import logica.excepciones.nuevoDuenioException;
 import logica.valueObjects.*;
@@ -15,10 +16,10 @@ public interface IFachada extends Remote
 {
 	//Requerimientos
 		//Registrar un nuevo Dueño
-		public abstract void nuevoDuenio (VODuenio duenio) throws SQLException, nuevoDuenioException, RemoteException, ConectionException;
+		public abstract void nuevoDuenio (VODuenio duenio) throws SQLException, nuevoDuenioException, RemoteException, ConectionException, NotificadorPoolException, noExisteDuenioException;
 		
 		//Registrar una nueva mascota
-		public abstract void nuevaMascota(int cedula, VOMascota mascota) throws SQLException, ConectionException, noExisteDuenioException, RemoteException;
+		public abstract void nuevaMascota(int cedula, VOMascota mascota) throws SQLException, ConectionException, noExisteDuenioException, RemoteException, NotificadorPoolException;
 		
 		//Borrar dueño luego de borrar sus mascotas
 		public abstract void borrarDuenioMascotas(int cedula) throws SQLException, ConectionException, RemoteException, noExisteDuenioException;

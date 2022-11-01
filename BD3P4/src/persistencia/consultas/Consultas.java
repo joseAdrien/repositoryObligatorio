@@ -2,13 +2,13 @@ package persistencia.consultas;
 
 public class Consultas {
 	
-	public String ExisteDuenio (){
+	public String existsCedula (){
 		String query = "select * from certamenmascotas.duenios where cedula = ?";
 		return query;
 	}
 	/* crea el texto de la consulta que verifica la existencia del dueño */
 	
-	public String CrearDuenio (){
+	public String insertDuenio (){
 		String query = "insert into certamenmascotas.duenios (cedula, nombre, apellido) values (?, ?, ?)";
 		return query;
 	}
@@ -26,25 +26,25 @@ public class Consultas {
 	}
 	/* crea el texto de la consulta que inserta una nueva mascota*/
 	
-	public String BorrarMascotasDuenio (){
+	public String deleteMascotas (){
 		String query = "delete from certamenmascotas.mascotas where cedduenio = ?";
 		return query;
 	}
 	/* crea el texto de la consulta que elimina mascotas de un dueño dado*/
 	
-	public String BorrarDuenio (){
+	public String deleteDuenio (){
 		String query = "delete from certamenmascotas.duenios where cedula = ?";
 		return query;
 	}
 	/* crea el texto de la consulta que elimina un dueño dado*/
 	
-	public String ListarDuenios (){
+	public String listarDuenios (){
 		String query = "select * from certamenmascotas.duenios order by cedula ASC";
 		return query;
 	}
 	/* crea el texto de la consulta que devuelve todos los dueños */
 	
-	public String ListarMascotasDuenio (){
+	public String listarMascotas (){
 		String query = "select * from certamenmascotas.mascotas where cedduenio = ? order by numInscripcion ASC";
 		return query;
 	}
@@ -63,7 +63,7 @@ public class Consultas {
 	}
 	/* crea el texto de la consulta que devuelve una mascota en especifico*/
 	
-	public String CantidadMascotasDuenio (){
+	public String contarMascotas (){
 		String query = "select count(*) from certamenmascotas.mascotas where cedduenio = ? and raza = ?";
 		return query;
 	}
@@ -78,5 +78,18 @@ public class Consultas {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public String kmascota() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	public String findDuenio() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

@@ -1,29 +1,22 @@
 package persistencia.daos;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Properties;
 
-import logica.Duenio;
 import logica.Mascota;
 import logica.excepciones.ConectionException;
 import logica.excepciones.PropertiesException;
 import logica.excepciones.inscripcionException;
-import logica.excepciones.noExisteDuenioException;
-import logica.valueObjects.VODuenio;
-import logica.valueObjects.VOMascota;
+import logica.excepciones.noExisteMascotaException;
 import logica.valueObjects.VOMascotaList;
 import persistencia.consultas.Consultas;
 import persistencia.poolConexiones.Conexion;
 import persistencia.poolConexiones.IConexion;
-import persistencia.poolConexiones.PoolConexiones;
 
 public class DAOMascotas {
 	
@@ -49,31 +42,18 @@ public class DAOMascotas {
 		}
 	}
 	
-	public int largo () throws FileNotFoundException, IOException, ClassNotFoundException, ConectionException
+	public int largo (IConexion con) throws FileNotFoundException, IOException, ClassNotFoundException, ConectionException
 	{
 		try
 		{
-			Properties p = new Properties();
-			String nomArchi = "Config/config.properties";
-			p.load (new FileInputStream (nomArchi));
-			String driver = p.getProperty("driver");
-			String url = p.getProperty("urlraiz");
-			String usuario = p.getProperty("usuario");
-			String password = p.getProperty("password");
-			
-			/* 1. cargo dinamicamente el driver de MySQL */
-			Class.forName(driver);
-			
-			Connection con = DriverManager.getConnection(url, usuario, password);
-			
+			Connection conexion = ((Conexion)con).getConexion();
 			Consultas consultas = new Consultas ();
 			String query = consultas.largo ();
-			PreparedStatement pstmt1 = con.prepareStatement (query);
+			PreparedStatement pstmt1 = conexion.prepareStatement (query);
 			ResultSet large = pstmt1.executeQuery ();
 			int larg = large.getInt(1);
 			large.close();
 			pstmt1.close ();
-			con.close ();
 			return larg;
 		}
 		catch (SQLException e) {
@@ -81,27 +61,15 @@ public class DAOMascotas {
 		}
 	}
 	
-	public Mascota find (int numInsc) throws FileNotFoundException, IOException, ClassNotFoundException
+	public Mascota find (IConexion con, int numInsc) throws noExisteMascotaException
 	{
 		try
 		{
-			Properties p = new Properties();
-			String nomArchi = "Config/config.properties";
-			p.load (new FileInputStream (nomArchi));
-			String driver = p.getProperty("driver");
-			String url = p.getProperty("urlraiz");
-			String usuario = p.getProperty("usuario");
-			String password = p.getProperty("password");
-			
-			/* 1. cargo dinamicamente el driver de MySQL */
-			Class.forName(driver);
-			
-			Connection con = DriverManager.getConnection(url, usuario, password);
-			
-			Mascota mas;
+			Connection conexion = ((Conexion)con).getConexion();
+			Mascota mas = null;
 			Consultas consultas = new Consultas ();
 			String query = consultas.kmascota ();
-			PreparedStatement kesimo = con.prepareStatement (query);
+			PreparedStatement kesimo = conexion.prepareStatement (query);
 			kesimo.setInt(1, numInsc);
 			ResultSet rs;
 			rs = kesimo.executeQuery();
@@ -109,123 +77,84 @@ public class DAOMascotas {
 				int ni = rs.getInt(1);
 				String apodo = rs.getString(2);
 				String raza = rs.getString(3);
+				mas.setNumeroInscripcion(ni);
+				mas.setApodo(apodo);
+				mas.setRaza(raza);
 			};
-			mas = Mascota.setNumeroInscripcion(ni);
-			mas = Mascota.setApodo(apodo);
-			mas = Mascota.setRaza(raza);
+			
 			rs.close();
 			kesimo.close();
-			con.close ();
 			return mas;
 		}
 		catch (SQLException e) {
-			throw new //GENERAR EXCEPCION DE NO EXSITE MASCOTA;
+			throw new noExisteMascotaException();
 		}
 	}
 	
-	public List<VOMascotaList> listarMascotas () throws FileNotFoundException, IOException, ClassNotFoundException
+	public List<VOMascotaList> listarMascotas (IConexion con) throws noExisteMascotaException 
 	{
 		try
 		{
-			Properties p = new Properties();
-			String nomArchi = "Config/config.properties";
-			p.load (new FileInputStream (nomArchi));
-			String driver = p.getProperty("driver");
-			String url = p.getProperty("urlraiz");
-			String usuario = p.getProperty("usuario");
-			String password = p.getProperty("password");
+			Connection conexion = ((Conexion)con).getConexion();
 			
-			/* 1. cargo dinamicamente el driver de MySQL */
-			Class.forName(driver);
-			
-			Connection con = DriverManager.getConnection(url, usuario, password);
-			
-			VOMascota VOM;
-			List<VOMascotaList> lista = null;
+			List<VOMascotaList> lista = null ;
 			Consultas consultas = new Consultas ();
 			String query = consultas.listarMascotas ();
-			PreparedStatement LM = con.prepareStatement (query);
+			PreparedStatement LM = conexion.prepareStatement (query);
 			ResultSet rs;
 			rs = LM.executeQuery();
 			while (rs.next()) {
-				VOM = null;
+				
 				int nI = rs.getInt(1);
 				String apodo = rs.getString(2);
 				String raza = rs.getString(3);
-				VOM = Mascota.setNumeroInscripcion(nI);
-				VOM = Mascota.setApodo(apodo);
-				VOM = MAscota.setRaza(raza);
-				lista.add(VOM);
+				lista.add(new VOMascotaList(nI, apodo, raza));
+				
 			};
 			rs.close();
 			LM.close();
-			con.close ();
 			return lista;
 		}
 		catch (SQLException e) {
-			throw new //noexistemascotaexcepcion CREAR;
+			throw new noExisteMascotaException();
 		}
 	}
 	
-	public void borrarMascotas () throws FileNotFoundException, IOException, ClassNotFoundException
+	public void borrarMascotas (IConexion con) throws  ConectionException
 	{
 		try
 		{
-			Properties p = new Properties();
-			String nomArchi = "Config/config.properties";
-			p.load (new FileInputStream (nomArchi));
-			String driver = p.getProperty("driver");
-			String url = p.getProperty("urlraiz");
-			String usuario = p.getProperty("usuario");
-			String password = p.getProperty("password");
-			
-			/* 1. cargo dinamicamente el driver de MySQL */
-			Class.forName(driver);
-			
-			Connection con = DriverManager.getConnection(url, usuario, password);
-			
+			Connection conexion = ((Conexion)con).getConexion();
 			Consultas consultas = new Consultas ();
 			String query = consultas.deleteMascotas ();
-			PreparedStatement delete = con.prepareStatement (query);
+			PreparedStatement delete = conexion.prepareStatement (query);
 			delete.executeUpdate();
 			delete.close();
-			con.close ();
 		}
 		catch (SQLException e) {
-			throw new //OTRA VEZ LA EXCEPCION QUE FALTA;
+			throw new ConectionException();
 		}
 	}
 	
-	public int contarMascotas (String raza) throws FileNotFoundException, IOException, ClassNotFoundException
+	public int contarMascotas (IConexion con, String raza) throws ConectionException
 	{
 		try
 		{
-			Properties p = new Properties();
-			String nomArchi = "Config/config.properties";
-			p.load (new FileInputStream (nomArchi));
-			String driver = p.getProperty("driver");
-			String url = p.getProperty("urlraiz");
-			String usuario = p.getProperty("usuario");
-			String password = p.getProperty("password");
-			
-			/* 1. cargo dinamicamente el driver de MySQL */
-			Class.forName(driver);
-			
-			Connection con = DriverManager.getConnection(url, usuario, password);
-			
+			Connection conexion = ((Conexion)con).getConexion();
 			Consultas consultas = new Consultas ();
 			String query = consultas.contarMascotas ();
-			PreparedStatement pstmt1 = con.prepareStatement (query);
+			PreparedStatement pstmt1 = conexion.prepareStatement (query);
 			pstmt1.setString (1, raza);
-			ResultSet pstmt1 = pstmt1.executeQuery ();
-			int cont = pstmt1.getInt(1);
-			pstmt1.close ();
-			con.close ();
+			ResultSet pstmt2 = pstmt1.executeQuery ();
+			int cont = pstmt2.getInt(1);
+			pstmt2.close ();
 			return cont;
 		}
 		catch (SQLException e) {
-			throw new Exception("No existe la base u ocurrio un problema");
+			throw new ConectionException();
 		}
 	}
 
 }
+
+

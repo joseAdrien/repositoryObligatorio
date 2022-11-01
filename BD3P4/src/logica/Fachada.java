@@ -13,8 +13,10 @@ import java.util.Properties;
 import logica.excepciones.*;
 import logica.valueObjects.*;
 import persistencia.accesoBD.AccesoBD;
+import persistencia.daos.DAODuenios;
 import persistencia.daos.DAOMascotas;
 import persistencia.poolConexiones.IConexion;
+import persistencia.poolConexiones.IPoolConexiones;
 import persistencia.poolConexiones.PoolConexiones;
 
 public class Fachada extends UnicastRemoteObject implements IFachada{//jose
@@ -23,34 +25,48 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 	private static final long serialVersionUID = 1L;
 	
 	
-	private PoolConexiones miPool;
 	private DAOMascotas miDaoMascotas;
+	private DAODuenios miDaoDuenios;
+	private IPoolConexiones miPool;
 	
 	//Constructor
-	public Fachada () throws RemoteException, PropertiesException{
-		 miPool = new PoolConexiones();
+	public Fachada () throws PropertiesException , RemoteException{
+
 		 miDaoMascotas = new DAOMascotas();
+		 miDaoDuenios = new DAODuenios();
 	}
 	
 	
-	//Registrar una nueva mascota
-		public void nuevaMascota(int cedula, VOMascota mascota) throws SQLException, ConectionException, noExisteDuenioException, RemoteException{
+		public void nuevaMascota(int cedula, VOMascota mascota) throws ConectionException, NotificadorPoolException, noExisteDuenioException {
 			
 				IConexion icon = null;
-				
-				icon = miPool.obtenerConexion(true);
 				try {
-				//verificar si existe el duenio (Duenio.isMember)
-				//obtener el duenio (duenio.find)
-				//pedir cantidad de mascotas del duenio, agregarle 1 y setear ese valor a mascota.numero inscripcion
-				//generar una instancia de mascoota
-				//llamara a duenio.guardarmascota ( mascota , conexion)
-				
-				}catch () {
-				  miPool.liberarConexion(icon, false);
-				}finally (){
+					
+					boolean existe = false;
+					Duenio duenio = null;
+					Mascota masc = null;
+					icon = miPool.obtenerConexion(true);
+					existe = miDaoDuenios.member(icon, cedula);
+					if(existe) {
+						duenio = miDaoDuenios.find(icon, cedula);
+						//pedir cantidad de mascotas del duenio, agregarle 1 y setear ese valor a mascota.numero inscripcion
+						//generar una instancia de mascoota
+						masc = new Mascota();
+						masc.setApodo(mascota.getApodo());
+						masc.setRaza(mascota.getRaza());
+						//llamara a duenio.guardarmascota ( mascota , conexion)
+					}
+				} catch (ConectionException e) {
+					miPool.liberarConexion(icon, false);
+				} catch (NotificadorPoolException e) {
+					miPool.liberarConexion(icon, false);
+				} catch (noExisteDuenioException e) {
+					miPool.liberarConexion(icon, false);
+				} finally {
 					miPool.liberarConexion(icon, true);
 				}
+				
+				
 		}
 				
 				
@@ -60,25 +76,34 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 	//Requerimientos
 	//Registrar un nuevo Dueño
 	
-	public void nuevoDuenio (VODuenio duenio) throws SQLException, nuevoDuenioException, RemoteException, ConectionException{
+	public void nuevoDuenio (VODuenio duenio) throws ConectionException, NotificadorPoolException, noExisteDuenioException, nuevoDuenioException {
 		
+		IConexion icon = null;
 		try {
-			Connection con = DriverManager.getConnection(url, usuario, password);
-		
-			int cedula = duenio.getCedula();
-		
-		
-			if(!AccesoBD.existeDuenio(con, cedula)) {
-				AccesoBD.crearDuenio(con, duenio);
-			}else {
-				throw new nuevoDuenioException();
+			
+			boolean existe = false;
+			icon = miPool.obtenerConexion(true);
+			existe = miDaoDuenios.member(icon, duenio.getCedula());
+			if(!existe) {
+				Duenio d = new Duenio(duenio.getCedula(),duenio.getNombre(),duenio.getApellido());
+                miDaoDuenios.insert(icon, d);
 			}
-			con.close();
-			
-		}catch(SQLException e){
-			
-			throw new ConectionException();
+		} catch (ConectionException e) {
+			miPool.liberarConexion(icon, false);
+			throw e;
+		} catch (NotificadorPoolException e) {
+			miPool.liberarConexion(icon, false);
+			throw e;
+		} catch (noExisteDuenioException e) {
+			miPool.liberarConexion(icon, false);
+			throw e;
+		} catch (nuevoDuenioException e) {
+			miPool.liberarConexion(icon, false);
+			throw e;
+		} finally {
+			miPool.liberarConexion(icon, true);
 		}
+		
 	}
 	
 	

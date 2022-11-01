@@ -17,4 +17,19 @@ public class Mascota {
 		return 0;
 	}
 
+	public void setNumeroInscripcion(int ni) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setApodo(String apodo) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void setRaza(String raza) {
+		// TODO Auto-generated method stub
+
+	}
+
 }
