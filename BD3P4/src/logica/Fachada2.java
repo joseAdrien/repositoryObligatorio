@@ -19,7 +19,7 @@ import persistencia.poolConexiones.IConexion;
 import persistencia.poolConexiones.IPoolConexiones;
 import persistencia.poolConexiones.PoolConexiones;
 
-public class Fachada extends UnicastRemoteObject implements IFachada{//jose
+public class Fachada2 extends UnicastRemoteObject implements IFachada{//jose
 	
 	//Agrego esto automáticamente
 	private static final long serialVersionUID = 1L;
@@ -30,7 +30,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 	private IPoolConexiones miPool;
 	
 	//Constructor
-	public Fachada () throws PropertiesException , RemoteException{
+	public Fachada2 () throws PropertiesException , RemoteException{
 
 		 miDaoMascotas = new DAOMascotas();
 		 miDaoDuenios = new DAODuenios();
