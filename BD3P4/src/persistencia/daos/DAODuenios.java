@@ -47,7 +47,7 @@ public class DAODuenios {
 			Consultas consultas = new Consultas ();
 			String insert = consultas.insertDuenio ();
 			PreparedStatement pstmt2 = conexion.prepareStatement (insert);
-			pstmt2.setInt (1, Due.getCedula());
+			pstmt2.setLong (1, Due.getCedula());
 			pstmt2.setString (2, Due.getNombre());
 			pstmt2.setString (3, Due.getApellido());
 			pstmt2.executeUpdate ();

@@ -30,9 +30,9 @@ public class DAOMascotas {
 			Consultas consultas = new Consultas ();
 			String query = consultas.insback ();
 			PreparedStatement insback = conexion.prepareStatement (query);
-			insback.setInt (1, masc.getNumeroInscripcion());
+			insback.setLong (1, masc.getNumlnsc());
 			insback.setString (2, masc.getApodo());
-			insback.setDouble (3, masc.getRaza());
+			insback.setString (3, masc.getRaza());
 			insback.executeUpdate ();
 			insback.close ();
 
@@ -77,7 +77,7 @@ public class DAOMascotas {
 				int ni = rs.getInt(1);
 				String apodo = rs.getString(2);
 				String raza = rs.getString(3);
-				mas.setNumeroInscripcion(ni);
+				mas.setNumlnsc(numInsc);
 				mas.setApodo(apodo);
 				mas.setRaza(raza);
 			};

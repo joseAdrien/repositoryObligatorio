@@ -2,34 +2,48 @@ package logica;
 
 public class Mascota {
 
-	public int getNumeroInscripcion() {
-		// TODO Auto-generated method stub
-		return 0;
-	} //ALE
+
+	private int numlnsc;
+
+	private String apodo;
+
+	private String raza;
+	
+
+	public Mascota(int numlnsc, String apodo, String raza) {
+		super();
+		this.numlnsc = numlnsc;
+		this.apodo = apodo;
+		this.raza = raza;
+	}
+
+	public Mascota() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public long getNumlnsc() {
+		return numlnsc;
+	}
+
+	public void setNumlnsc(int numlnsc) {
+		this.numlnsc = numlnsc;
+	}
 
 	public String getApodo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public double getRaza() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public void setNumeroInscripcion(int ni) {
-		// TODO Auto-generated method stub
-		
+		return apodo;
 	}
 
 	public void setApodo(String apodo) {
-		// TODO Auto-generated method stub
+		this.apodo = apodo;
+	}
 
+	public String getRaza() {
+		return raza;
 	}
 
 	public void setRaza(String raza) {
-		// TODO Auto-generated method stub
-
+		this.raza = raza;
 	}
-
 }
+	
+
