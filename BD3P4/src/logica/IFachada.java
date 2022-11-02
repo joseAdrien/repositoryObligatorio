@@ -20,7 +20,7 @@ public interface IFachada extends Remote
 		public abstract void nuevoDuenio (VODuenio duenio) throws  PersistenciaException, ConectionException;
 		
 		//Registrar una nueva mascota
-		public abstract void nuevaMascota(int cedula, VOMascota mascota) throws SQLException, ConectionException, noExisteDuenioException, RemoteException, NotificadorPoolException;
+		public abstract void nuevaMascota(int cedula, VOMascota mascota) throws PersistenciaException;
 		
 		//Borrar dueño luego de borrar sus mascotas
 		public abstract void borrarDuenioMascotas(int cedula) throws SQLException, ConectionException, RemoteException, noExisteDuenioException;

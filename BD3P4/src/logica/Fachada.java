@@ -28,40 +28,43 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 	private DAOMascotas miDaoMascotas;
 	private DAODuenios miDaoDuenios;
 	private IPoolConexiones miPool;
-	
+	private IConexion icon = null;
 	//Constructor
 	public Fachada () throws PropertiesException , RemoteException{
 
 		 miDaoMascotas = new DAOMascotas();
 		 miDaoDuenios = new DAODuenios();
+		
 	}
 	
 	
-		public void nuevaMascota(int cedula, VOMascota mascota) throws ConectionException, NotificadorPoolException, noExisteDuenioException {
+		public void nuevaMascota(int cedula, VOMascota mascota) throws PersistenciaException {
 			
-				IConexion icon = null;
+				
 				try {
 					
 					boolean existe = false;
 					Duenio duenio = null;
 					Mascota masc = null;
+					int cantMAscotas=0;
 					icon = miPool.obtenerConexion(true);
 					existe = miDaoDuenios.member(icon, cedula);
 					if(existe) {
 						duenio = miDaoDuenios.find(icon, cedula);
-						//pedir cantidad de mascotas del duenio, agregarle 1 y setear ese valor a mascota.numero inscripcion
-						//generar una instancia de mascoota
+						cantMAscotas =  duenio.cantidadMascotas(icon);
 						masc = new Mascota();
 						masc.setApodo(mascota.getApodo());
 						masc.setRaza(mascota.getRaza());
-						//llamara a duenio.guardarmascota ( mascota , conexion)
+						masc.setNumlnsc( cantMAscotas + 1);
+						duenio.agregarMascota(icon, masc);
 					}
-				} catch (ConectionException e) {
-					miPool.liberarConexion(icon, false);
-				} catch (NotificadorPoolException e) {
-					miPool.liberarConexion(icon, false);
+				
+				
 				} catch (noExisteDuenioException e) {
 					miPool.liberarConexion(icon, false);
+					throw new PersistenciaException();
+
+				
 				} finally {
 					miPool.liberarConexion(icon, true);
 				}
@@ -76,9 +79,8 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 	//Requerimientos
 	//Registrar un nuevo Dueño
 	
-	public void nuevoDuenio (VODuenio duenio) throws PersistenciaException, ConectionException {
+	public void nuevoDuenio (VODuenio duenio) throws PersistenciaException {
 		
-		IConexion icon = null;
 		try {
 			
 			boolean existe = false;
@@ -88,18 +90,15 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 				Duenio d = new Duenio(duenio.getCedula(),duenio.getNombre(),duenio.getApellido());
                 miDaoDuenios.insert(icon, d);
 			}
-		} catch (ConectionException e) {
-			miPool.liberarConexion(icon, false);
-			throw new PersistenciaException();
-		} catch (NotificadorPoolException e) {
-			miPool.liberarConexion(icon, false);
-			throw new PersistenciaException();
+		
 		} catch (noExisteDuenioException e) {
 			miPool.liberarConexion(icon, false);
 			throw new PersistenciaException();
+			
 		} catch (nuevoDuenioException e) {
 			miPool.liberarConexion(icon, false);
 			throw new PersistenciaException();
+			
 		} finally {
 			miPool.liberarConexion(icon, true);
 		}
@@ -110,7 +109,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 	
 	
 	//Borrar dueño luego de borrar sus mascotas
-	public void borrarDuenioMascotas(int cedula) throws SQLException, ConectionException, RemoteException, noExisteDuenioException{
+	public void borrarDuenioMascotas(int cedula)  {
 		try {
 			Connection con = DriverManager.getConnection(url, usuario, password);
 		

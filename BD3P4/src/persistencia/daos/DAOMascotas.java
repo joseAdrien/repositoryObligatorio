@@ -61,7 +61,7 @@ public class DAOMascotas {
 		}
 	}
 	
-	public Mascota find (IConexion con, int numInsc) throws noExisteMascotaException
+	public Mascota kesimo (IConexion con, int numInsc) throws noExisteMascotaException
 	{
 		try
 		{

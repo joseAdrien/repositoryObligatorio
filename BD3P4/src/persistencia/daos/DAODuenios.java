@@ -63,7 +63,7 @@ public class DAODuenios {
 		try
 		{
 			Connection conexion = ((Conexion)con).getConexion();
-			Duenio due = new Duenio();
+			Duenio due =null;
 			Consultas consultas = new Consultas ();
 			String query = consultas.findDuenio ();
 			PreparedStatement find = conexion.prepareStatement (query);
@@ -74,9 +74,7 @@ public class DAODuenios {
 				int cedu = rs.getInt(1);
 				String nombre = rs.getString(2);
 				String apellido = rs.getString(3);
-				due.setCedula(cedu);
-				due.setNombre(nombre);
-				due.setApellido(apellido);
+				due = new Duenio(cedu, nombre, apellido);
 			};
 			
 			rs.close();
