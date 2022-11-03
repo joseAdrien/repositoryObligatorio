@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import logica.Mascota;
@@ -74,12 +75,10 @@ public class DAOMascotas {
 			ResultSet rs;
 			rs = kesimo.executeQuery();
 			if (rs.next()) {
-				int ni = rs.getInt(1);
 				String apodo = rs.getString(2);
 				String raza = rs.getString(3);
-				mas.setNumlnsc(numInsc);
-				mas.setApodo(apodo);
-				mas.setRaza(raza);
+				mas = new Mascota(numInsc,apodo,raza);
+				
 			};
 			
 			rs.close();
@@ -97,7 +96,7 @@ public class DAOMascotas {
 		{
 			Connection conexion = ((Conexion)con).getConexion();
 			
-			List<VOMascotaList> lista = null ;
+			List<VOMascotaList> lista = new ArrayList<VOMascotaList>() ;
 			Consultas consultas = new Consultas ();
 			String query = consultas.listarMascotas ();
 			PreparedStatement LM = conexion.prepareStatement (query);

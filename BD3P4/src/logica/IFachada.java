@@ -1,17 +1,13 @@
 package logica;
 
 import java.rmi.Remote;
-import java.rmi.RemoteException;
-import java.sql.SQLException;
 import java.util.List;
 
 import logica.excepciones.ConectionException;
-import logica.excepciones.NoRelacionDueInsException;
-import logica.excepciones.NotificadorPoolException;
 import logica.excepciones.PersistenciaException;
-import logica.excepciones.noExisteDuenioException;
-import logica.excepciones.nuevoDuenioException;
-import logica.valueObjects.*;
+import logica.valueObjects.VODuenio;
+import logica.valueObjects.VOMascota;
+import logica.valueObjects.VOMascotaList;
 
 public interface IFachada extends Remote
 {

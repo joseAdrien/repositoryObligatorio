@@ -75,10 +75,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 				if(existe) {
 					duenio = miDaoDuenios.find(icon, cedula);
 					cantMAscotas =  duenio.cantidadMascotas(icon);
-					masc = new Mascota();
-					masc.setApodo(mascota.getApodo());
-					masc.setRaza(mascota.getRaza());
-					masc.setNumlnsc( cantMAscotas + 1);
+					masc = new Mascota(cantMAscotas + 1,mascota.getApodo(),mascota.getRaza());
 					duenio.agregarMascota(icon, masc);
 				}
 			

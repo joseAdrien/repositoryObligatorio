@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import logica.Duenio;
@@ -109,7 +110,7 @@ public class DAODuenios {
 		{
 			Connection conexion = ((Conexion)con).getConexion();
 			
-			List<VODuenio> lista = null;
+			List<VODuenio> lista = new ArrayList<VODuenio>() ;
 			Consultas consultas = new Consultas ();
 			String query = consultas.listarDuenios ();
 			PreparedStatement LD = conexion.prepareStatement (query);

@@ -17,33 +17,24 @@ public class Mascota {
 		this.raza = raza;
 	}
 
-	public Mascota() {
-		// TODO Auto-generated constructor stub
-	}
 
 	public long getNumlnsc() {
 		return numlnsc;
 	}
 
-	public void setNumlnsc(int numlnsc) {
-		this.numlnsc = numlnsc;
-	}
+
 
 	public String getApodo() {
 		return apodo;
 	}
 
-	public void setApodo(String apodo) {
-		this.apodo = apodo;
-	}
+
 
 	public String getRaza() {
 		return raza;
 	}
 
-	public void setRaza(String raza) {
-		this.raza = raza;
-	}
+
 }
 	
 
