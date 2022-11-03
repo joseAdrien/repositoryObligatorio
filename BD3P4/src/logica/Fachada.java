@@ -12,7 +12,6 @@ import logica.valueObjects.VODuenio;
 import logica.valueObjects.VOMascota;
 import logica.valueObjects.VOMascotaList;
 import persistencia.daos.DAODuenios;
-import persistencia.daos.DAOMascotas;
 import persistencia.poolConexiones.IConexion;
 import persistencia.poolConexiones.IPoolConexiones;
 
