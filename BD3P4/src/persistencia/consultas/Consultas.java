@@ -20,10 +20,7 @@ public class Consultas {
 	}
 	/* crea el texto de la consulta que devuelve el numero de inscripcion mas alta dado el dueño*/
 	
-	public String InsertMascota (){
-		String query = "insert into certamenmascotas.mascotas (numInscripcion, apodo, raza, cedDuenio) values (?, ?, ?, ?)";
-		return query;
-	}
+	
 	/* crea el texto de la consulta que inserta una nueva mascota*/
 	
 	public String deleteMascotas (){
@@ -50,10 +47,7 @@ public class Consultas {
 	}
 	/* crea el texto de la consulta que devuelve todas las mascotas e un dueño */
 	
-	public String ExisteInscripcionDuenio (){
-		String query = "select * from certamenmascotas.mascotas where cedduenio = ? and numinscripcion = ?";
-		return query;
-	}
+	
 	/* crea el texto de la consulta que devuelve todas las mascotas e un dueño */
 	/* Esto para cumplir con el procedimiento "obtenerMascota". Tambien se puede hacer mediante la funcion UltimaMascotaDuenio*/
 	
@@ -70,18 +64,18 @@ public class Consultas {
 	/* crea el texto de la consulta que devuelve la cantidad de mascotas de un dueño con raza ingresada*/
 
 	public String insback() {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "insert into certamenmascotas.mascotas (numInscripcion, apodo, raza, cedDuenio) values (?, ?, ?, ?)";
+		return query;
 	}
 
 	public String largo() {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "select count(*) from certamenmascotas.mascotas where cedduenio = ? ";
+		return query;
 	}
 
 	public String kmascota() {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "select * from certamenmascotas.mascotas where cedduenio = ? and numinscripcion = ?";
+		return query;
 	}
 
 

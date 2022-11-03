@@ -21,6 +21,13 @@ import persistencia.poolConexiones.IConexion;
 
 public class DAOMascotas {
 	
+	private int cedDuenio;
+		
+		
+		public DAOMascotas(int ced) {
+		this.cedDuenio = ced;
+	}
+	
     //Agrega la mascota a la BD
 	public void insback (IConexion con,Mascota masc) throws inscripcionException, ConectionException, PropertiesException
 	{
@@ -34,6 +41,7 @@ public class DAOMascotas {
 			insback.setLong (1, masc.getNumlnsc());
 			insback.setString (2, masc.getApodo());
 			insback.setString (3, masc.getRaza());
+			insback.setInt(4, cedDuenio);
 			insback.executeUpdate ();
 			insback.close ();
 
@@ -51,6 +59,7 @@ public class DAOMascotas {
 			Consultas consultas = new Consultas ();
 			String query = consultas.largo ();
 			PreparedStatement pstmt1 = conexion.prepareStatement (query);
+			pstmt1.setInt(1, cedDuenio);
 			ResultSet large = pstmt1.executeQuery ();
 			int larg = large.getInt(1);
 			large.close();
@@ -71,7 +80,8 @@ public class DAOMascotas {
 			Consultas consultas = new Consultas ();
 			String query = consultas.kmascota ();
 			PreparedStatement kesimo = conexion.prepareStatement (query);
-			kesimo.setInt(1, numInsc);
+			kesimo.setInt(1, cedDuenio);
+			kesimo.setInt(2, numInsc);
 			ResultSet rs;
 			rs = kesimo.executeQuery();
 			if (rs.next()) {
@@ -100,6 +110,7 @@ public class DAOMascotas {
 			Consultas consultas = new Consultas ();
 			String query = consultas.listarMascotas ();
 			PreparedStatement LM = conexion.prepareStatement (query);
+			LM.setInt(1, cedDuenio);
 			ResultSet rs;
 			rs = LM.executeQuery();
 			while (rs.next()) {
@@ -127,6 +138,7 @@ public class DAOMascotas {
 			Consultas consultas = new Consultas ();
 			String query = consultas.deleteMascotas ();
 			PreparedStatement delete = conexion.prepareStatement (query);
+			delete.setInt(1, cedDuenio);
 			delete.executeUpdate();
 			delete.close();
 		}
@@ -143,7 +155,8 @@ public class DAOMascotas {
 			Consultas consultas = new Consultas ();
 			String query = consultas.contarMascotas ();
 			PreparedStatement pstmt1 = conexion.prepareStatement (query);
-			pstmt1.setString (1, raza);
+			pstmt1.setInt(1, cedDuenio);
+			pstmt1.setString (2, raza);
 			ResultSet pstmt2 = pstmt1.executeQuery ();
 			int cont = pstmt2.getInt(1);
 			pstmt2.close ();
