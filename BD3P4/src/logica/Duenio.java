@@ -48,47 +48,67 @@ public class Duenio {
 	
 	
 	
-	public boolean tieneMascotas(IConexion icon ,int numInsc) {
+	public boolean tieneMascotas(IConexion icon ,int numInsc) throws Exception {
 		//llamar  this.secuencia.kesimo(icon  , numInsc);
 		//retornar true o false si devuelve una mascota
-		return false;
+		boolean tiene = false;
+		Mascota aux = null;
+		
+		aux = secuencia.kesimo(icon, numInsc);
+		if (aux != null)
+			tiene = true;
+		
+		return tiene;
 	}
 	
-	public int cantidadMascotas(IConexion icon) {
+	public int cantidadMascotas(IConexion icon) throws Exception{
 		//llamar a largo de dao mascotas;
-		return 0;
+		
+		int aux =0;
+		
+		aux = secuencia.largo(icon);
+		return aux;
 	}
 	
-	public void agregarMascota(IConexion icon,Mascota masc) {
+	public void agregarMascota(IConexion icon,Mascota masc) throws Exception{
 		//llamar insback de DAO MAscotas
+		
+		secuencia.insback(icon, masc);
 	}
 	
-	public VOMascota obtenerMascota(IConexion icon,int numInsc) {
+	@SuppressWarnings("null")
+	public VOMascota obtenerMascota(IConexion icon,int numInsc) throws Exception {
 		//kesima de dao mascotas
-		return null;
+		
+		Mascota aux = null;
+		VOMascota aux2 = null;
+		
+		aux = secuencia.kesimo(icon, numInsc);
+		aux2.setRaza(aux.getRaza());
+		aux2.setApodo(aux.getApodo());
+		return aux2;
 	}
-	
-	public List<VOMascotaList> listarMAscotas(IConexion icon){
+	//FEDE deberia pasarle el id del duenio
+	public List<VOMascotaList> listarMAscotas(IConexion icon) throws Exception{
 		//llamar al listarMAscotas de daoduenio;
-		return null;
+		List<VOMascotaList> lista = null ;
+		lista = secuencia.listarMascotas(icon);
+		return lista;
 	}
 	
-	public void borrarMascotas(IConexion icon) {
+	public void borrarMascotas(IConexion icon) throws Exception {
 		//llamar a borrar mascotas del DAO mascotas
+		
+		secuencia.borrarMascotas(icon);
 		
 	}
 	
-	public int contarMascotas(IConexion icon, String raza) {
+	public int contarMascotas(IConexion icon, String raza) throws Exception {
 		//llamar a contar mascotas de dao mascotas
-		return 0;
+		int aux = 0;
+		aux = secuencia.contarMascotas(icon, raza);
+		return aux;
 	}
 }
-	
-
-	
-	
-	
-	
-	
 	
 	
