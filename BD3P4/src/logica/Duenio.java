@@ -68,7 +68,7 @@ public class Duenio {
 		return null;
 	}
 	
-	public List<VOMascotaList> listarMAscotas(){
+	public List<VOMascotaList> listarMAscotas(IConexion icon){
 		//llamar al listarMAscotas de daoduenio;
 		return null;
 	}

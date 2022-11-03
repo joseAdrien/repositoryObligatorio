@@ -1,23 +1,20 @@
 package logica;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Properties;
 
-import logica.excepciones.*;
-import logica.valueObjects.*;
-import persistencia.accesoBD.AccesoBD;
+import logica.excepciones.PersistenciaException;
+import logica.excepciones.PropertiesException;
+import logica.excepciones.noExisteDuenioException;
+import logica.excepciones.nuevoDuenioException;
+import logica.valueObjects.VODuenio;
+import logica.valueObjects.VOMascota;
+import logica.valueObjects.VOMascotaList;
 import persistencia.daos.DAODuenios;
 import persistencia.daos.DAOMascotas;
 import persistencia.poolConexiones.IConexion;
 import persistencia.poolConexiones.IPoolConexiones;
-import persistencia.poolConexiones.PoolConexiones;
 
 public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 	
@@ -25,64 +22,23 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 	private static final long serialVersionUID = 1L;
 	
 	
-	private DAOMascotas miDaoMascotas;
 	private DAODuenios miDaoDuenios;
 	private IPoolConexiones miPool;
 	private IConexion icon = null;
 	//Constructor
 	public Fachada () throws PropertiesException , RemoteException{
 
-		 miDaoMascotas = new DAOMascotas();
 		 miDaoDuenios = new DAODuenios();
 		
 	}
 	
-	
-		public void nuevaMascota(int cedula, VOMascota mascota) throws PersistenciaException {
-			
-				
-				try {
-					
-					boolean existe = false;
-					Duenio duenio = null;
-					Mascota masc = null;
-					int cantMAscotas=0;
-					icon = miPool.obtenerConexion(true);
-					existe = miDaoDuenios.member(icon, cedula);
-					if(existe) {
-						duenio = miDaoDuenios.find(icon, cedula);
-						cantMAscotas =  duenio.cantidadMascotas(icon);
-						masc = new Mascota();
-						masc.setApodo(mascota.getApodo());
-						masc.setRaza(mascota.getRaza());
-						masc.setNumlnsc( cantMAscotas + 1);
-						duenio.agregarMascota(icon, masc);
-					}
-				
-				
-				} catch (noExisteDuenioException e) {
-					miPool.liberarConexion(icon, false);
-					throw new PersistenciaException();
-
-				
-				} finally {
-					miPool.liberarConexion(icon, true);
-				}
-				
-				
-		}
-				
-				
-				
-
-		
 	//Requerimientos
-	//Registrar un nuevo Dueño
-	
-	public void nuevoDuenio (VODuenio duenio) throws PersistenciaException {
+		//Registrar un nuevo Dueño
 		
-		try {
+	public void nuevoDuenio (VODuenio duenio) throws PersistenciaException {
 			
+		try {
+				
 			boolean existe = false;
 			icon = miPool.obtenerConexion(true);
 			existe = miDaoDuenios.member(icon, duenio.getCedula());
@@ -104,99 +60,182 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 		}
 		
 	}
+		
 	
-	
-	
+	public void nuevaMascota(int cedula, VOMascota mascota) throws PersistenciaException {
+		
+			
+			try {
+				
+				boolean existe = false;
+				Duenio duenio = null;
+				Mascota masc = null;
+				int cantMAscotas=0;
+				icon = miPool.obtenerConexion(true);
+				existe = miDaoDuenios.member(icon, cedula);
+				if(existe) {
+					duenio = miDaoDuenios.find(icon, cedula);
+					cantMAscotas =  duenio.cantidadMascotas(icon);
+					masc = new Mascota();
+					masc.setApodo(mascota.getApodo());
+					masc.setRaza(mascota.getRaza());
+					masc.setNumlnsc( cantMAscotas + 1);
+					duenio.agregarMascota(icon, masc);
+				}
+			
+			
+			} catch (noExisteDuenioException e) {
+				miPool.liberarConexion(icon, false);
+				throw new PersistenciaException();
+
+			
+			} finally {
+				miPool.liberarConexion(icon, true);
+			}
+			
+			
+	}
+				
 	
 	//Borrar dueño luego de borrar sus mascotas
-	public void borrarDuenioMascotas(int cedula)  {
-		try {
-			Connection con = DriverManager.getConnection(url, usuario, password);
-		
-			if(AccesoBD.existeDuenio(con, cedula)) {
-				
-				AccesoBD.borrarDuenioMascotas(con, cedula);
-			}else {
-				throw new noExisteDuenioException();
+	public void borrarDuenioMascotas(int cedula) throws PersistenciaException  {
+		try {	
+			Duenio duenio = null;
+			icon = miPool.obtenerConexion(true);
+			duenio = miDaoDuenios.find(icon, cedula);
+			if(duenio != null) {
+				duenio.borrarMascotas(icon);
+				miDaoDuenios.delete(icon, cedula);
 			}
-			con.close();
-				
-		}catch(SQLException e){
-			throw new ConectionException();
+		
+		} catch (PersistenciaException e) {
+			miPool.liberarConexion(icon, false);
+			throw e;
+			
+		} catch (noExisteDuenioException e) {
+			miPool.liberarConexion(icon, false);
+			throw new PersistenciaException();
+			
+		} finally {
+			miPool.liberarConexion(icon, true);
 		}
+		
 	}	
 	
 	//Listar todos los duenios
-	public List<VODuenio> listarDuenios() throws SQLException, ConectionException, RemoteException{
-				
-		try {
-			Connection con = DriverManager.getConnection(url, usuario, password);
-			List<VODuenio> lista = AccesoBD.listarDuenios(con);
+	public List<VODuenio> listarDuenios() throws PersistenciaException {
+		List<VODuenio> duenios = null;
+		try {	
 			
-			con.close();
-			return lista;
-		}catch(SQLException e){
-			throw new ConectionException();
-		}
+			icon = miPool.obtenerConexion(false);
+			duenios =miDaoDuenios.listarDuenios(icon);
+			return duenios;
+		
+		} catch (PersistenciaException e) {
+			miPool.liberarConexion(icon, false);
+			throw e;
+			
+		
+		} catch (noExisteDuenioException e) {
+			miPool.liberarConexion(icon, false);
+			throw new PersistenciaException();
+			
+		} finally {
+			miPool.liberarConexion(icon, true);
+			
+		}		
+		
 	}
 	
 	//Listar todas las mascotas de un duenio
-	public List<VOMascotaList> listarMascotasDuenio(int cedula) throws noExisteDuenioException, SQLException, ConectionException, RemoteException{
+	public List<VOMascotaList> listarMascotasDuenio(int cedula) throws  PersistenciaException{
 
+		List<VOMascotaList> mascotas = null;
 		try {
-			Connection con = DriverManager.getConnection(url, usuario, password);
-			List<VOMascotaList> lista = null;
 			
-			if(AccesoBD.existeDuenio(con, cedula)) {
-				lista = AccesoBD.listarMascotasDuenio(con, cedula);
-			}else {
-				throw new noExisteDuenioException();
+			boolean existe = false;
+			Duenio duenio = null;
+			
+			icon = miPool.obtenerConexion(false);
+			existe = miDaoDuenios.member(icon, cedula);
+			if(existe) {
+				duenio = miDaoDuenios.find(icon, cedula);
+				mascotas =  duenio.listarMAscotas(icon);
 			}
-			con.close();
-			return lista;
-		}catch(SQLException e){
-			throw new ConectionException();
+		
+			return mascotas;
+		
+		
+		} catch (PersistenciaException e) {
+			miPool.liberarConexion(icon, false);
+			throw e;
+			
+		} catch (noExisteDuenioException e) {
+			miPool.liberarConexion(icon, false);
+			throw new PersistenciaException();
+			
+		} finally {
+			miPool.liberarConexion(icon, true);
 		}
 	}
 	
 	
 	//Obtener una mascota
-	public VOMascota obtenerMascota(int cedula, int numero) throws noExisteDuenioException, NoRelacionDueInsException, SQLException, ConectionException, RemoteException{
+	public VOMascota obtenerMascota(int cedula, int numero) throws  PersistenciaException{
+		VOMascota voMascota = null;
 		try {
-			Connection con = DriverManager.getConnection(url, usuario, password);
-			VOMascota mascota = null;
-			if(AccesoBD.existeDuenio(con, cedula)) {
-				if(AccesoBD.existeMascota(con, cedula, numero)) {
-					mascota = AccesoBD.obtenerMascota(con, cedula, numero);
-					
-				}else {
-					throw new NoRelacionDueInsException();
-				}
-			}else {
-				throw new noExisteDuenioException();
+			
+			boolean existe = false;
+			Duenio duenio = null;
+			
+			icon = miPool.obtenerConexion(false);
+			existe = miDaoDuenios.member(icon, cedula);
+			if(existe) {
+				duenio = miDaoDuenios.find(icon, cedula);
+				voMascota = duenio.obtenerMascota(icon,numero);
 			}
-			con.close();
-			return mascota;
-		}catch(SQLException e){
-			throw new ConectionException();
+		
+			return voMascota;
+		
+		} catch (PersistenciaException e) {
+			miPool.liberarConexion(icon, false);
+			throw e;
+		} catch (noExisteDuenioException e) {
+			miPool.liberarConexion(icon, false);
+			throw new PersistenciaException();
+			
+		} finally {
+			miPool.liberarConexion(icon, true);
 		}
 	}	
 	
 	//Obtener la cantidad de mascotas de un dueño segun raza
-	public int contarMascotas(int cedula, String raza) throws noExisteDuenioException, SQLException, ConectionException, RemoteException{
+	public int contarMascotas(int cedula, String raza) throws  PersistenciaException{
+      
+		int cantidadMascotas = 0;
 		try {
-			Connection con = DriverManager.getConnection(url, usuario, password);
-			int cantidad = 0;
 			
-			if(AccesoBD.existeDuenio(con, cedula)) {
-				cantidad = AccesoBD.contarMascotas(con, cedula, raza);
-			}else {
-				throw new noExisteDuenioException();
+			boolean existe = false;
+			Duenio duenio = null;
+			
+			icon = miPool.obtenerConexion(false);
+			existe = miDaoDuenios.member(icon, cedula);
+			if(existe) {
+				duenio = miDaoDuenios.find(icon, cedula);
+				cantidadMascotas = duenio.cantidadMascotas(icon);
 			}
-			con.close();
-			return cantidad;
-		}catch(SQLException e){
-			throw new ConectionException();
+		
+			return cantidadMascotas;
+		
+		} catch (PersistenciaException e) {
+			miPool.liberarConexion(icon, false);
+			throw e;
+		} catch (noExisteDuenioException e) {
+			miPool.liberarConexion(icon, false);
+			throw new PersistenciaException();
+			
+		} finally {
+			miPool.liberarConexion(icon, true);
 		}
 	}	
 

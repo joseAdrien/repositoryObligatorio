@@ -23,17 +23,17 @@ public interface IFachada extends Remote
 		public abstract void nuevaMascota(int cedula, VOMascota mascota) throws PersistenciaException;
 		
 		//Borrar dueño luego de borrar sus mascotas
-		public abstract void borrarDuenioMascotas(int cedula) throws SQLException, ConectionException, RemoteException, noExisteDuenioException;
+		public abstract void borrarDuenioMascotas(int cedula) throws  PersistenciaException;
 		
 		//Listar todos los duenios
-		public abstract List<VODuenio> listarDuenios() throws SQLException, ConectionException, RemoteException;
+		public abstract List<VODuenio> listarDuenios() throws  PersistenciaException;
 		
 		//Listar todas las mascotas de un duenio
-		public abstract List<VOMascotaList> listarMascotasDuenio(int cedula) throws noExisteDuenioException, SQLException, ConectionException, RemoteException;
+		public abstract List<VOMascotaList> listarMascotasDuenio(int cedula) throws  PersistenciaException;
 		
 		//Obtener una mascota
-		public abstract VOMascota obtenerMascota(int cedula, int numero) throws noExisteDuenioException, NoRelacionDueInsException, SQLException, ConectionException, RemoteException;
+		public abstract VOMascota obtenerMascota(int cedula, int numero) throws  PersistenciaException;
 		
 		//Obtener la cantidad de mascotas de un dueño segun raza
-		public abstract int contarMascotas(int cedula, String raza) throws noExisteDuenioException, SQLException, ConectionException, RemoteException;
+		public abstract int contarMascotas(int cedula, String raza) throws  PersistenciaException;
 }
