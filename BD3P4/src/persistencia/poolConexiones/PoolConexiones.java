@@ -15,7 +15,7 @@ import logica.excepciones.PropertiesException;
 
 public class PoolConexiones implements IPoolConexiones {//JOSE
 	
-	private String driver;
+
 	private String url;
 	private String user;
 	private String password;
@@ -33,22 +33,17 @@ public class PoolConexiones implements IPoolConexiones {//JOSE
 			String nomArchi = "Config/config.properties";
 			
 			p.load (new FileInputStream (nomArchi));
-		    driver = p.getProperty("driver");
 		    url = p.getProperty("url");
 		    user = p.getProperty("usuario");
 		    password = p.getProperty("password");
 		    nivelTransaccionalidad= Integer.parseInt(p.getProperty("nivelTransaccionalidad"));
 		    tamanio = Integer.parseInt(p.getProperty("tamanio"));
 		    
-			Class.forName(driver);
+			//Class.forName(driver);
 			conexiones = new Conexion[tamanio];
 			tope = 0;
 		
-			
-		
-		} catch (ClassNotFoundException e) {
-			throw new PersistenciaException();
-			
+	
 		} catch (FileNotFoundException e) {
 			throw new PersistenciaException();
 			

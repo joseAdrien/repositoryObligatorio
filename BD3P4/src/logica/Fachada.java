@@ -1,11 +1,14 @@
 package logica;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
+import java.util.Properties;
 
 import logica.excepciones.PersistenciaException;
-import logica.excepciones.PropertiesException;
 import logica.excepciones.noExisteDuenioException;
 import logica.excepciones.nuevoDuenioException;
 import logica.valueObjects.VODuenio;
@@ -23,12 +26,46 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 	
 	private DAODuenios miDaoDuenios;
 	private IPoolConexiones miPool;
+	
 	private IConexion icon = null;
+	private String nomArchi = "Config/config.properties";
+	private String poolConcreto;
+	
 	//Constructor
-	public Fachada () throws PropertiesException , RemoteException{
+	public Fachada () throws   RemoteException, PersistenciaException{
 
 		 miDaoDuenios = new DAODuenios();
-		
+		 Properties p = new Properties();
+		 	
+			try {
+				String nomArchi = "Config/config.properties";
+				
+				p.load (new FileInputStream (nomArchi));
+				poolConcreto = p.getProperty("driver");
+			    
+				
+			    
+				Class.forName(poolConcreto);
+				
+				miPool = (IPoolConexiones) Class.forName(poolConcreto).newInstance();
+				
+			
+			} catch (ClassNotFoundException e) {
+				throw new PersistenciaException();
+				
+			} catch (FileNotFoundException e) {
+				throw new PersistenciaException();
+				
+			} catch (IOException e) {
+				throw new PersistenciaException();
+				
+			} catch (InstantiationException e) {
+				throw new PersistenciaException();
+				
+			} catch (IllegalAccessException e) {
+				throw new PersistenciaException();
+			}
+			
 	}
 	
 	//Requerimientos
