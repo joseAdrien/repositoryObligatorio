@@ -70,7 +70,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 	
 	//Requerimientos
 		//Registrar un nuevo Dueño
-		
+		//ALE
 	public void nuevoDuenio (VODuenio duenio) throws PersistenciaException {
 			
 		try {
@@ -97,7 +97,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 		
 	}
 		
-	
+	//JOSE
 	public void nuevaMascota(int cedula, VOMascota mascota) throws PersistenciaException {
 		
 			
@@ -129,7 +129,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 			
 	}
 				
-	
+	//NL
 	//Borrar dueño luego de borrar sus mascotas
 	public void borrarDuenioMascotas(int cedula) throws PersistenciaException  {
 		try {	
@@ -154,7 +154,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 		}
 		
 	}	
-	
+	//NL
 	//Listar todos los duenios
 	public List<VODuenio> listarDuenios() throws PersistenciaException {
 		List<VODuenio> duenios = null;
