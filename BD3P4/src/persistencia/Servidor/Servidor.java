@@ -16,6 +16,7 @@ import java.util.Properties;
 import javax.swing.JOptionPane;
 
 import logica.Fachada;
+import logica.excepciones.PersistenciaException;
 import logica.excepciones.PropertiesException;
 
 //Clase Servidor
@@ -23,7 +24,7 @@ public class Servidor {
 
 	private static Fachada CPLogica;
 
-	public static void main(String[] args) throws RemoteException, MalformedURLException, PropertiesException {
+	public static void main(String[] args) throws RemoteException, MalformedURLException, PropertiesException, PersistenciaException {
 
 		// TODO Auto-generated method stub
 
@@ -46,10 +47,11 @@ public class Servidor {
 
 			// Publico el objeto remoto en IP y N° de puertos obtenidos
 			String ruta = "//" + ip + ":" + puerto + "/Fachada";
+			////192.168.1.3:5004/Fachada
 			CPLogica = new Fachada();
 
 			Naming.rebind(ruta, CPLogica);
-			JOptionPane.showMessageDialog(null, "Servidor iniciado");
+			System.out.println("Servidor iniciado");
 
 		} catch (RemoteException e) // Si ocurren problemas de red
 		{

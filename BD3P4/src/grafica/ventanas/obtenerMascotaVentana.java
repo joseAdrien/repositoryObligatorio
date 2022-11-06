@@ -16,6 +16,7 @@ import grafica.controladores.listarMascotasDuenioControlador;
 import grafica.controladores.obtenerMascotaControlador;
 import logica.excepciones.ConectionException;
 import logica.excepciones.NoRelacionDueInsException;
+import logica.excepciones.PersistenciaException;
 import logica.excepciones.noExisteDuenioException;
 import logica.valueObjects.VOMascota;
 import logica.valueObjects.VOMascotaList;
@@ -187,6 +188,9 @@ public class obtenerMascotaVentana {
 					}catch (NotBoundException e1) {
 						e1.printStackTrace();
 					}catch (IOException e1) {
+						e1.printStackTrace();
+					} catch (PersistenciaException e1) {
+						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}

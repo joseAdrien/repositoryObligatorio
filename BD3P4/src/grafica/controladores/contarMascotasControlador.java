@@ -14,6 +14,7 @@ import java.util.Properties;
 import grafica.ventanas.contarMascotasVentana;
 import logica.IFachada;
 import logica.excepciones.ConectionException;
+import logica.excepciones.PersistenciaException;
 import logica.excepciones.noExisteDuenioException;
 
 public class contarMascotasControlador {
@@ -65,15 +66,9 @@ public class contarMascotasControlador {
 	}
 
 	// 4 - Traer datos
-	public int contarMascotasCont(int cedula, String raza) throws noExisteDuenioException, SQLException, RemoteException, ConectionException {
-		try{
-			int cantidad = ifachada.contarMascotas(cedula, raza);
-			return cantidad;
-		}catch (SQLException e){
-			throw new ConectionException();
-		}catch (ConectionException e) {
-			throw new ConectionException();
-		}
+	public int contarMascotasCont(int cedula, String raza) throws noExisteDuenioException, SQLException, RemoteException, ConectionException, PersistenciaException {
+		int cantidad = ifachada.contarMascotas(cedula, raza);
+		return cantidad;
 	}
 }
 

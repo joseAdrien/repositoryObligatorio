@@ -16,6 +16,7 @@ import grafica.ventanas.listarDueniosVentana;
 import grafica.ventanas.nuevoDuenioVentana;
 import logica.IFachada;
 import logica.excepciones.ConectionException;
+import logica.excepciones.PersistenciaException;
 import logica.excepciones.nuevoDuenioException;
 import logica.valueObjects.VODuenio;
 
@@ -68,15 +69,9 @@ public class listarDueniosControlador {
 	}
 
 	// 4 - Traer datos
-	public List<VODuenio> listarDueniosCont() throws SQLException, RemoteException, ConectionException {
-		try{
-			List<VODuenio> duenio = ifachada.listarDuenios();
-			return duenio;
-		}catch (SQLException e){
-			throw new ConectionException();
-		}catch (ConectionException e) {
-			throw new ConectionException();
-		}
+	public List<VODuenio> listarDueniosCont() throws SQLException, RemoteException, ConectionException, PersistenciaException {
+		List<VODuenio> duenio = ifachada.listarDuenios();
+		return duenio;
 	}
 }
 

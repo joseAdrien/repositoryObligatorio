@@ -9,6 +9,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
+import logica.excepciones.PersistenciaException;
+
 import javax.swing.JMenu;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -112,7 +115,12 @@ public class mainAdmin {
 		JMenuItem listarDuenio = new JMenuItem("Listar dueños");
 		listarDuenio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new listarDueniosVentana();
+				try {
+					new listarDueniosVentana();
+				} catch (PersistenciaException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				frame1.dispose();
 			}
 		});

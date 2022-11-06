@@ -14,6 +14,7 @@ import java.util.Properties;
 import grafica.ventanas.borrarDuenioVentana;
 import logica.IFachada;
 import logica.excepciones.ConectionException;
+import logica.excepciones.PersistenciaException;
 import logica.excepciones.noExisteDuenioException;
 
 public class borrarDuenioControlador {
@@ -65,15 +66,8 @@ public class borrarDuenioControlador {
 	}
 
 	// 4 - Guardar Cambios
-	public void borrarDuenioCont(int cedula) throws SQLException, noExisteDuenioException, RemoteException, ConectionException {
-		try{
-			
-			ifachada.borrarDuenioMascotas(cedula);
-		}catch (SQLException e){
-			throw new ConectionException();
-		}catch (ConectionException e) {
-			throw new ConectionException();
-		}
+	public void borrarDuenioCont(int cedula) throws SQLException, noExisteDuenioException, RemoteException, ConectionException, PersistenciaException {
+		ifachada.borrarDuenioMascotas(cedula);
 	}
 }
 

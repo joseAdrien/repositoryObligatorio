@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import grafica.controladores.borrarDuenioControlador;
 import grafica.controladores.listarDueniosControlador;
 import logica.excepciones.ConectionException;
+import logica.excepciones.PersistenciaException;
 import logica.excepciones.noExisteDuenioException;
 import logica.valueObjects.VODuenio;
 
@@ -53,15 +54,17 @@ public class listarDueniosVentana {
 
 	/**
 	 * Create the application.
+	 * @throws PersistenciaException 
 	 */
-	public listarDueniosVentana() {
+	public listarDueniosVentana() throws PersistenciaException {
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws PersistenciaException 
 	 */
-	private void initialize() {
+	private void initialize() throws PersistenciaException {
 		frame1 = new JFrame();
 		
 		

@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 
 import grafica.controladores.NuevoDuenioControlador;
 import logica.excepciones.ConectionException;
+import logica.excepciones.PersistenciaException;
 import logica.excepciones.nuevoDuenioException;
 
 import java.awt.event.KeyAdapter;
@@ -156,6 +157,9 @@ public class nuevoDuenioVentana {
 					}catch (NotBoundException e1) {
 						e1.printStackTrace();
 					}catch (IOException e1) {
+						e1.printStackTrace();
+					} catch (PersistenciaException e1) {
+						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					} 
 				}

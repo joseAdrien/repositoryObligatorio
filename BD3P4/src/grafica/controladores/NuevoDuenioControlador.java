@@ -14,6 +14,7 @@ import java.util.Properties;
 import grafica.ventanas.nuevoDuenioVentana;
 import logica.IFachada;
 import logica.excepciones.ConectionException;
+import logica.excepciones.PersistenciaException;
 import logica.excepciones.nuevoDuenioException;
 import logica.valueObjects.VODuenio;
 
@@ -66,14 +67,10 @@ public class NuevoDuenioControlador {
 	}
 
 	// 4 - Guardar Cambios
-	public void guardarNuevoDuenioCont(int cedula, String nombre, String apellido ) throws SQLException, nuevoDuenioException, RemoteException, ConectionException {
+	public void guardarNuevoDuenioCont(int cedula, String nombre, String apellido ) throws SQLException, nuevoDuenioException, RemoteException, ConectionException, PersistenciaException {
 		try{
 			VODuenio duenio = new VODuenio(cedula, nombre, apellido);
 			ifachada.nuevoDuenio(duenio);
-		}catch (nuevoDuenioException e){
-			throw new nuevoDuenioException();
-		}catch (SQLException e){
-			throw new ConectionException();
 		}catch (ConectionException e) {
 			throw new ConectionException();
 		}

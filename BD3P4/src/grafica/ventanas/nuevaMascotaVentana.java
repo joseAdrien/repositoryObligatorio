@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 
 import grafica.controladores.NuevaMascotaControlador;
 import logica.excepciones.ConectionException;
+import logica.excepciones.PersistenciaException;
 import logica.excepciones.noExisteDuenioException;
 import logica.valueObjects.VOMascota;
 
@@ -161,6 +162,9 @@ public class nuevaMascotaVentana {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (PersistenciaException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					} 

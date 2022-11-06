@@ -15,6 +15,7 @@ import java.util.Properties;
 import grafica.ventanas.listarMascotasDuenioVentana;
 import logica.IFachada;
 import logica.excepciones.ConectionException;
+import logica.excepciones.PersistenciaException;
 import logica.excepciones.noExisteDuenioException;
 import logica.valueObjects.VOMascotaList;
 
@@ -67,15 +68,9 @@ public class listarMascotasDuenioControlador {
 	}
 
 	// 4 - Traer datos
-	public List<VOMascotaList> listarMascotasDuenioCont(int cedula) throws noExisteDuenioException, SQLException, RemoteException, ConectionException {
-		try{
-			List<VOMascotaList> mascotas = ifachada.listarMascotasDuenio(cedula);
-			return mascotas;
-		}catch (SQLException e){
-			throw new ConectionException();
-		}catch (ConectionException e) {
-			throw new ConectionException();
-		}
+	public List<VOMascotaList> listarMascotasDuenioCont(int cedula) throws noExisteDuenioException, SQLException, RemoteException, ConectionException, PersistenciaException {
+		List<VOMascotaList> mascotas = ifachada.listarMascotasDuenio(cedula);
+		return mascotas;
 	}
 }
 

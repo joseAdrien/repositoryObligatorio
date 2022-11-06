@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 
 import grafica.controladores.listarMascotasDuenioControlador;
 import logica.excepciones.ConectionException;
+import logica.excepciones.PersistenciaException;
 import logica.excepciones.noExisteDuenioException;
 import logica.valueObjects.VOMascotaList;
 
@@ -161,6 +162,9 @@ public class listarMascotasDuenioVentana {
 					}catch (NotBoundException e1) {
 						e1.printStackTrace();
 					}catch (IOException e1) {
+						e1.printStackTrace();
+					} catch (PersistenciaException e1) {
+						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}

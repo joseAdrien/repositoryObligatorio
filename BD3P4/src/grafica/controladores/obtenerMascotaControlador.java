@@ -19,6 +19,7 @@ import grafica.ventanas.obtenerMascotaVentana;
 import logica.IFachada;
 import logica.excepciones.ConectionException;
 import logica.excepciones.NoRelacionDueInsException;
+import logica.excepciones.PersistenciaException;
 import logica.excepciones.noExisteDuenioException;
 import logica.excepciones.nuevoDuenioException;
 import logica.valueObjects.VODuenio;
@@ -74,15 +75,9 @@ public class obtenerMascotaControlador {
 	}
 
 	// 4 - Traer datos
-	public VOMascota obtenerMascotaCont(int cedula, int numIns) throws NoRelacionDueInsException, noExisteDuenioException, SQLException, RemoteException, ConectionException {
-		try{
-			VOMascota mascota = ifachada.obtenerMascota(cedula, numIns);
-			return mascota;
-		}catch (SQLException e){
-			throw new ConectionException();
-		}catch (ConectionException e) {
-			throw new ConectionException();
-		}
+	public VOMascota obtenerMascotaCont(int cedula, int numIns) throws NoRelacionDueInsException, noExisteDuenioException, SQLException, RemoteException, ConectionException, PersistenciaException {
+		VOMascota mascota = ifachada.obtenerMascota(cedula, numIns);
+		return mascota;
 	}
 }
 

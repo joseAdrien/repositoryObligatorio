@@ -14,6 +14,7 @@ import java.util.Properties;
 import grafica.ventanas.nuevaMascotaVentana;
 import logica.IFachada;
 import logica.excepciones.ConectionException;
+import logica.excepciones.PersistenciaException;
 import logica.excepciones.noExisteDuenioException;
 import logica.valueObjects.VOMascota;
 
@@ -61,20 +62,10 @@ public class NuevaMascotaControlador {
 		
 	}
 	
-	public void NuevaMascotaCont(int cedula, String apodo, String raza) throws SQLException, ConectionException, noExisteDuenioException, RemoteException
+	public void NuevaMascotaCont(int cedula, String apodo, String raza) throws SQLException, ConectionException, noExisteDuenioException, RemoteException, PersistenciaException
 	{		
-		try
-		{
-			VOMascota mascota = new VOMascota(apodo, raza);
-			
-			ifachada.nuevaMascota(cedula, mascota);
-			
-		}catch (noExisteDuenioException e) {
-			throw new noExisteDuenioException();
-		}catch(SQLException e){
-			throw new ConectionException();
-		}catch(ConectionException e) {
-			throw new ConectionException();
-		}
+		VOMascota mascota = new VOMascota(apodo, raza);
+		
+		ifachada.nuevaMascota(cedula, mascota);
 	}
 }
