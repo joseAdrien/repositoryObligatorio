@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 import java.util.Properties;
 
@@ -19,10 +18,8 @@ import persistencia.poolConexiones.IConexion;
 import persistencia.poolConexiones.IPoolConexiones;
 import persistencia.poolConexiones.PoolConexiones;
 
-public class Fachada extends UnicastRemoteObject implements IFachada{//jose
+public class FachadaForTest  implements IFachada{
 	
-	//Agrego esto automáticamente
-	private static final long serialVersionUID = 1L;
 	
 	
 	private DAODuenios miDaoDuenios;
@@ -33,7 +30,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 	private String poolConcreto;
 	
 	//Constructor
-	public Fachada () throws   RemoteException, PersistenciaException{
+	public FachadaForTest () throws   RemoteException, PersistenciaException{
 
 		 miDaoDuenios = new DAODuenios();
 		 Properties p = new Properties();
@@ -44,7 +41,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 				p.load (new FileInputStream (nomArchi));
 				poolConcreto = p.getProperty("driver");
 			    Class.forName(poolConcreto).newInstance();
-			    miPool = new PoolConexiones();
+				miPool = new PoolConexiones();
 			
 			} catch (ClassNotFoundException e) {
 				throw new PersistenciaException();
@@ -93,7 +90,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 		
 	}
 		
-	//JOSE listo
+	//JOSE
 	public void nuevaMascota(int cedula, VOMascota mascota) throws RemoteException, PersistenciaException {
 		
 			
