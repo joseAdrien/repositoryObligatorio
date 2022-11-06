@@ -21,11 +21,11 @@ import persistencia.poolConexiones.IConexion;
 
 public class DAOMascotas {
 	
-	private int cedDuenio;
+private int cedDuenio;
 		
 		
-		public DAOMascotas(int ced) {
-		this.cedDuenio = ced;
+	public DAOMascotas(int cedula) {
+		this.cedDuenio = cedula;
 	}
 	
     //Agrega la mascota a la BD
@@ -55,16 +55,19 @@ public class DAOMascotas {
 	{
 		try
 		{
+			int cantidad = 0;
 			Connection conexion = ((Conexion)con).getConexion();
 			Consultas consultas = new Consultas ();
 			String query = consultas.largo ();
 			PreparedStatement pstmt1 = conexion.prepareStatement (query);
 			pstmt1.setInt(1, cedDuenio);
 			ResultSet large = pstmt1.executeQuery ();
-			int larg = large.getInt(1);
+			if(large.next()) {
+				cantidad = large.getInt(1);
+			}
 			large.close();
 			pstmt1.close ();
-			return larg;
+			return cantidad;
 		}
 		catch (SQLException e) {
 			throw new ConectionException();

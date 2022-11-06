@@ -14,6 +14,7 @@ import logica.FachadaForTest;
 import logica.IFachada;
 import logica.excepciones.PersistenciaException;
 import logica.valueObjects.VODuenio;
+import logica.valueObjects.VOMascota;
 
 public class TesteoDeFachada {
 	
@@ -32,13 +33,18 @@ static IFachada fachada;
 			String puerto = p.getProperty("puertoServidor");
 			String ruta = "//" + ip + ":" + puerto + "/Fachada";
 			fachada =  (IFachada)Naming.lookup(ruta);
+			
+			//Prueba Listar Duenios//
 			List<VODuenio> lista = fachada.listarDuenios();
 			System.out.println(lista.size());
+			
+			//Prueba Nueva mascota*/
+			fachada.nuevaMascota(1234567, new VOMascota("manchita","granDanes"));
 
 //************************para pruebas directas***************8//
     	   // fachada = new FachadaForTest();
-		//	List<VODuenio> lista = fachada.listarDuenios();
-		//	System.out.println(lista.size());
+			//List<VODuenio> lista = fachada.listarDuenios();
+			//System.out.println(lista.size());
 		
 		
 	

@@ -81,8 +81,8 @@ public class Consultas {
 
 
 	public String findDuenio() {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "select * from certamenmascotas.duenios where cedula = ?";
+		return query;
 	}
 
 

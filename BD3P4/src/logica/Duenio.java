@@ -16,7 +16,7 @@ import persistencia.poolConexiones.IConexion;
 
 public class Duenio {
 
-	private long cedula;
+	private int cedula;
 
 	private String nombre;
 
@@ -24,18 +24,19 @@ public class Duenio {
 	
     private DAOMascotas secuencia;
 
-	public Duenio(long cedula, String nombre, String apellido) {
+	public Duenio(int cedula, String nombre, String apellido) {
 		super();
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.apellido = apellido;
+		secuencia = new DAOMascotas(cedula);
 
 	}
 
 	
 //agregar mascotas en ese metodo se llama al insback
 
-	public long getCedula() {
+	public  int getCedula() {
 		return cedula;
 	}
 
@@ -77,7 +78,6 @@ public class Duenio {
 		//llamar a largo de dao mascotas;
 		
 		int aux =0;
-		
 		try {
 			aux = secuencia.largo(icon);
 		} catch (ClassNotFoundException | IOException | ConectionException e) {
