@@ -115,11 +115,12 @@ public class PoolConexiones implements IPoolConexiones {//JOSE
 	
 	private IConexion generarConexion() throws PersistenciaException {
 		try {
-			IConexion con =  (IConexion) DriverManager.getConnection(url, user, password);
-			((Conexion) con).getConexion().setTransactionIsolation(nivelTransaccionalidad);
+			Connection conn = DriverManager.getConnection(url, user, password);
+			conn.setAutoCommit(false);
+			IConexion c = new Conexion(conn);
 			creadas = creadas ++;
 			tope = tope ++;
-			return con;
+			return c;
 		} catch (SQLException e) {
 			throw new PersistenciaException();
 		}

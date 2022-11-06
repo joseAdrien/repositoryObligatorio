@@ -17,6 +17,7 @@ import logica.valueObjects.VOMascotaList;
 import persistencia.daos.DAODuenios;
 import persistencia.poolConexiones.IConexion;
 import persistencia.poolConexiones.IPoolConexiones;
+import persistencia.poolConexiones.PoolConexiones;
 
 public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 	
@@ -43,7 +44,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 				p.load (new FileInputStream (nomArchi));
 				poolConcreto = p.getProperty("driver");
 			    Class.forName(poolConcreto).newInstance();
-				
+			    miPool = new PoolConexiones();
 			
 			} catch (ClassNotFoundException e) {
 				throw new PersistenciaException();
