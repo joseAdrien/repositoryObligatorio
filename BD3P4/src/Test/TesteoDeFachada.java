@@ -12,6 +12,7 @@ import java.util.Properties;
 import logica.Fachada;
 import logica.FachadaForTest;
 import logica.IFachada;
+import logica.excepciones.ConectionException;
 import logica.excepciones.PersistenciaException;
 import logica.valueObjects.VODuenio;
 import logica.valueObjects.VOMascota;
@@ -39,15 +40,16 @@ static IFachada fachada;
 			System.out.println(lista.size());
 			
 			//Prueba Nueva mascota*/
-			fachada.nuevaMascota(1234567, new VOMascota("manchita","granDanes"));
-
+			//fachada.nuevaMascota(1234567, new VOMascota("manchita","granDanes"));
+			//fachada.nuevoDuenio(new VODuenio(34444850,"Jose","Adrien"));
 //************************para pruebas directas***************8//
-    	   // fachada = new FachadaForTest();
+    	    fachada = new FachadaForTest();
 			//List<VODuenio> lista = fachada.listarDuenios();
 			//System.out.println(lista.size());
+		    //fachada.nuevoDuenio(new VODuenio(34444850,"Jose","Adrien"));
 		
-		
-	
+    	    //fachada.listarMascotasDuenio(34444850);
+    	    fachada.contarMascotas(1234567, "granDanes");
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

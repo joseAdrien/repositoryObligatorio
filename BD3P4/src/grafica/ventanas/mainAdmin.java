@@ -58,7 +58,7 @@ public class mainAdmin {
 		frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame1.getContentPane().setLayout(null);
 		frame1.setLocationRelativeTo(null);
-		frame1.setTitle("Menú Principal - Administrador de Mascotas");
+		frame1.setTitle("Menú Principal - Administrador de Mascotas GRUPO Sala 5");
 		///////////////////////////////////////////////////////////////
 		
 		
@@ -103,7 +103,7 @@ public class mainAdmin {
 		});
 		mnNewMenuAcciones.add(nuevaMascotaItem);
 		
-		JMenuItem eliminarDuenio = new JMenuItem("Quitar dueño de mascotas");
+		JMenuItem eliminarDuenio = new JMenuItem("Borrar dueño y Mascotas");
 		eliminarDuenio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new borrarDuenioVentana();
