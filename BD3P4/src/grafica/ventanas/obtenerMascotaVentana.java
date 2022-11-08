@@ -155,7 +155,7 @@ public class obtenerMascotaVentana {
 		lblRazaMascota.setBounds(231, 319, 45, 13);
 		frame1.getContentPane().add(lblRazaMascota);
 		frame1.setLocationRelativeTo(null);
-		frame1.setTitle("Obtener Mascota");
+		frame1.setTitle("Obtener Mascota  Grupo Sala 5");
 		
 		JButton btnNewButton_1 = new JButton("Consultar");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -173,10 +173,13 @@ public class obtenerMascotaVentana {
 						
 						cont = new obtenerMascotaControlador(window);
 						VOMascota mascota = cont.obtenerMascotaCont(cedula, inscripcion); //obtengo la mascotas especifica
-						
-						//imprimo el nombre de la mascota
-						lblApodoMascota.setText(mascota.getApodo());
-						lblRazaMascota.setText(mascota.getRaza());
+						if(mascota == null) {
+							JOptionPane.showMessageDialog(null, "No hay datos para esa cedula- inscripcion ","Advertencia",JOptionPane.WARNING_MESSAGE);
+						}else {
+							//imprimo el nombre de la mascota
+							lblApodoMascota.setText(mascota.getApodo());
+							lblRazaMascota.setText(mascota.getRaza());
+						}
 					}catch(noExisteDuenioException e1) {
 						JOptionPane.showMessageDialog(null, e1.getMensaje(),"Advertencia",JOptionPane.WARNING_MESSAGE);
 					}catch (NoRelacionDueInsException e1) {

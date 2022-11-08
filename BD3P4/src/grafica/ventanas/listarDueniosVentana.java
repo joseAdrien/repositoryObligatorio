@@ -74,7 +74,7 @@ public class listarDueniosVentana {
 		frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame1.getContentPane().setLayout(null);
 		frame1.setLocationRelativeTo(null);
-		frame1.setTitle("Listar Dueños");
+		frame1.setTitle("Listar Dueños  Grupo Sala 5");
 		
 		JLabel lblNewLabel = new JLabel("Listado de Dueños");
 		lblNewLabel.setBounds(152, 57, 124, 13);

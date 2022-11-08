@@ -161,7 +161,10 @@ private int cedDuenio;
 			pstmt1.setInt(1, cedDuenio);
 			pstmt1.setString (2, raza);
 			ResultSet pstmt2 = pstmt1.executeQuery ();
-			int cont = pstmt2.getInt(1);
+			int cont = 0;
+			while(pstmt2.next()) {
+				cont = pstmt2.getInt(1);
+			}
 			pstmt2.close ();
 			return cont;
 		}

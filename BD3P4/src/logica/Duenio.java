@@ -105,7 +105,9 @@ public class Duenio {
 		
 		try {
 			aux = secuencia.kesimo(icon, numInsc);
-			aux2 = new VOMascota(aux.getApodo(),aux.getRaza());
+			if(aux != null) { 
+				aux2 = new VOMascota(aux.getApodo(),aux.getRaza());
+			}
 			
 		} catch (noExisteMascotaException e) {
 			throw new PersistenciaException();

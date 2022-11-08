@@ -46,10 +46,10 @@ static IFachada fachada;
     	    fachada = new FachadaForTest();
 			//List<VODuenio> lista = fachada.listarDuenios();
 			//System.out.println(lista.size());
-		    //fachada.nuevoDuenio(new VODuenio(34444850,"Jose","Adrien"));
+		    fachada.contarMascotas(32526363, "dasd");
 		
     	    //fachada.listarMascotasDuenio(34444850);
-    	    fachada.contarMascotas(1234567, "granDanes");
+    	    fachada.obtenerMascota(32526363, 2);
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

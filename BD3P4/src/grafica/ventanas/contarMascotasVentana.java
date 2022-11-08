@@ -121,7 +121,7 @@ public class contarMascotasVentana {
 		lblNInscripcin.setBounds(10, 167, 205, 30);
 		frame1.getContentPane().add(lblNInscripcin);
 		frame1.setLocationRelativeTo(null);
-		frame1.setTitle("Obtener Mascota");
+		frame1.setTitle("Obtener Mascota  Grupo Sala 5");
 		
 		JButton btnNewButton_1 = new JButton("Consultar");
 		btnNewButton_1.addActionListener(new ActionListener() {

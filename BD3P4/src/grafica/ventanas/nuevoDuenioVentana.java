@@ -169,7 +169,7 @@ public class nuevoDuenioVentana {
 		frame1.getContentPane().add(btnNewButton_1);
 		
 		frame1.setLocationRelativeTo(null);
-		frame1.setTitle("Nuevo Dueño");
+		frame1.setTitle("Nuevo Dueño Grupo Sala 5");
 		
 		//despliego ventana
 		frame1.setVisible(true);

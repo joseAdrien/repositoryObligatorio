@@ -80,7 +80,7 @@ public class listarMascotasDuenioVentana {
 		lblRazaMascota.setBounds(231, 319, 45, 13);
 		frame1.getContentPane().add(lblRazaMascota);
 		frame1.setLocationRelativeTo(null);
-		frame1.setTitle("Listar Mascotas de un dueño");
+		frame1.setTitle("Listar Mascotas de un dueño  Grupo Sala 5");
 		
 		JLabel lblNewLabel = new JLabel("Listado de Mascotas de un Dueño");
 		lblNewLabel.setBounds(152, 57, 225, 13);

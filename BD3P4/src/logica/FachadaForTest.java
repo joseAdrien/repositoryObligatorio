@@ -248,7 +248,7 @@ public class FachadaForTest  implements IFachada{
 			existe = miDaoDuenios.member(icon, cedula);
 			if(existe) {
 				duenio = miDaoDuenios.find(icon, cedula);
-				cantidadMascotas = duenio.cantidadMascotas(icon);
+				cantidadMascotas = duenio.contarMascotas(icon,raza);
 			}
 		
 			return cantidadMascotas;

@@ -136,7 +136,7 @@ public class borrarDuenioVentana {
 		btnNewButton_1.setBounds(368, 449, 153, 30);
 		frame1.getContentPane().add(btnNewButton_1);
 		frame1.setLocationRelativeTo(null);
-		frame1.setTitle("Borrar Dueño");
+		frame1.setTitle("Borrar Dueño  Grupo Sala 5");
 		
 		//despliego ventana
 		frame1.setVisible(true);

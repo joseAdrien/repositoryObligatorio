@@ -253,7 +253,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 			existe = miDaoDuenios.member(icon, cedula);
 			if(existe) {
 				duenio = miDaoDuenios.find(icon, cedula);
-				cantidadMascotas = duenio.cantidadMascotas(icon);
+				cantidadMascotas = duenio.contarMascotas(icon,raza);
 			}
 		
 			return cantidadMascotas;
