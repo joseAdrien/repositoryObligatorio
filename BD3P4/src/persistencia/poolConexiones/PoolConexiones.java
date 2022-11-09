@@ -38,8 +38,8 @@ public class PoolConexiones implements IPoolConexiones {//JOSE
 		    password = p.getProperty("password");
 		    nivelTransaccionalidad= Integer.parseInt(p.getProperty("nivelTransaccionalidad"));
 		    tamanio = Integer.parseInt(p.getProperty("tamanio"));
-		    
-			//Class.forName(driver);
+		    //TODO
+			//Class.forName(driver);traer el driver sql del properties 
 			conexiones = new Conexion[tamanio];
 			tope = 0;
 		

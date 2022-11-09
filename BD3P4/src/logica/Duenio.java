@@ -1,8 +1,10 @@
 package logica;
 
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 
 import logica.excepciones.ConectionException;
 import logica.excepciones.PersistenciaException;
@@ -11,7 +13,8 @@ import logica.excepciones.inscripcionException;
 import logica.excepciones.noExisteMascotaException;
 import logica.valueObjects.VOMascota;
 import logica.valueObjects.VOMascotaList;
-import persistencia.daos.DAOMascotas;
+import persistencia.abstracta.IFabricaAbstracta;
+import persistencia.daos.IDAOMascotas;
 import persistencia.poolConexiones.IConexion;
 
 public class Duenio {
@@ -22,15 +25,40 @@ public class Duenio {
 
 	private String apellido;
 	
-    private DAOMascotas secuencia;
+    private IDAOMascotas secuencia;
 
-	public Duenio(int cedula, String nombre, String apellido) {
+	public Duenio(int cedula, String nombre, String apellido) throws PersistenciaException  {
 		super();
-		this.cedula = cedula;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		secuencia = new DAOMascotas(cedula);
+		
+		
 
+		Properties p = new Properties();
+		String nomArchi = "Config/config.properties";
+		String nombreFabrica = "";
+		try {
+			p.load (new FileInputStream (nomArchi));
+			nombreFabrica= p.getProperty("fabrica");
+			IFabricaAbstracta fabrica = (IFabricaAbstracta)Class.forName(nombreFabrica).newInstance();
+			this.cedula = cedula;
+			this.nombre = nombre;
+			this.apellido = apellido;
+			fabrica.crearIDAOMAscotas(cedula);
+		} catch (IOException e) {
+			throw new PersistenciaException();
+		} catch (InstantiationException e) {
+			throw new PersistenciaException();
+		} catch (IllegalAccessException e) {
+			throw new PersistenciaException();
+		} catch (ClassNotFoundException e) {
+			throw new PersistenciaException();
+		}
+		
+		
+		
+
+        
+		
+		
 	}
 
 	

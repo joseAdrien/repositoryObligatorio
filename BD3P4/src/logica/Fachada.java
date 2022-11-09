@@ -14,7 +14,9 @@ import logica.excepciones.nuevoDuenioException;
 import logica.valueObjects.VODuenio;
 import logica.valueObjects.VOMascota;
 import logica.valueObjects.VOMascotaList;
+import persistencia.abstracta.IFabricaAbstracta;
 import persistencia.daos.DAODuenios;
+import persistencia.daos.IDAODuenios;
 import persistencia.poolConexiones.IConexion;
 import persistencia.poolConexiones.IPoolConexiones;
 import persistencia.poolConexiones.PoolConexiones;
@@ -23,14 +25,14 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 	
 	//Agrego esto automáticamente
 	private static final long serialVersionUID = 1L;
+
+
 	
-	
-	private DAODuenios miDaoDuenios;
+	private IDAODuenios miDaoDuenios;
 	private IPoolConexiones miPool;
 	
 	private IConexion icon = null;
-	private String nomArchi = "Config/config.properties";
-	private String poolConcreto;
+	
 	
 	//Constructor
 	public Fachada () throws   RemoteException, PersistenciaException{
@@ -39,12 +41,15 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 		 Properties p = new Properties();
 		 	
 			try {
-				String nomArchi = "Config/config.properties";
-				
+			    String nomArchi = "Config/config.properties";
+				String nombreFabrica = "";
 				p.load (new FileInputStream (nomArchi));
-				poolConcreto = p.getProperty("driver");
-			    Class.forName(poolConcreto).newInstance();
-			    miPool = new PoolConexiones();
+				
+				nombreFabrica= p.getProperty("fabrica");
+				IFabricaAbstracta fabrica = (IFabricaAbstracta)Class.forName("persistencia.abstracta.FabricaMYSQL").newInstance();
+				miDaoDuenios = fabrica.crearIDAODuenios();
+			    miPool= fabrica.crearIPoolConexiones();
+			   
 			
 			} catch (ClassNotFoundException e) {
 				throw new PersistenciaException();

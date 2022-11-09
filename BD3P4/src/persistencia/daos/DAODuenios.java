@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import logica.Duenio;
+import logica.excepciones.PersistenciaException;
 import logica.excepciones.noExisteDuenioException;
 import logica.excepciones.nuevoDuenioException;
 import logica.valueObjects.VODuenio;
@@ -15,8 +16,9 @@ import persistencia.consultas.Consultas;
 import persistencia.poolConexiones.Conexion;
 import persistencia.poolConexiones.IConexion;
 
-public class DAODuenios { 
+public class DAODuenios implements IDAODuenios { 
 	
+	@Override
 	public boolean member (IConexion con, int ced) throws noExisteDuenioException 
 	{
 		boolean existeCedula = false;
@@ -40,6 +42,7 @@ public class DAODuenios {
 		return existeCedula;
 	}
 	
+	@Override
 	public void insert (IConexion con, Duenio Due) throws nuevoDuenioException 
 	{
 		try
@@ -59,6 +62,7 @@ public class DAODuenios {
 		}
 	}
 	
+	@Override
 	public Duenio find (IConexion con, int ced) throws noExisteDuenioException 
 	{
 		try
@@ -84,9 +88,12 @@ public class DAODuenios {
 		}
 		catch (SQLException e) {
 			throw new noExisteDuenioException();
+		} catch (PersistenciaException e) {
+			throw new noExisteDuenioException();
 		}
 	}
 	
+	@Override
 	public void delete (IConexion con, int ced) throws noExisteDuenioException 
 	{
 		try
@@ -104,6 +111,7 @@ public class DAODuenios {
 		}
 	}
 	
+	@Override
 	public List<VODuenio> listarDuenios (IConexion con) throws noExisteDuenioException 
 	{
 		try

@@ -14,6 +14,7 @@ import logica.valueObjects.VODuenio;
 import logica.valueObjects.VOMascota;
 import logica.valueObjects.VOMascotaList;
 import persistencia.daos.DAODuenios;
+import persistencia.daos.IDAODuenios;
 import persistencia.poolConexiones.IConexion;
 import persistencia.poolConexiones.IPoolConexiones;
 import persistencia.poolConexiones.PoolConexiones;
@@ -22,7 +23,7 @@ public class FachadaForTest  implements IFachada{
 	
 	
 	
-	private DAODuenios miDaoDuenios;
+	private IDAODuenios miDaoDuenios;
 	private IPoolConexiones miPool;
 	
 	private IConexion icon = null;

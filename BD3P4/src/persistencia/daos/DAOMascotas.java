@@ -19,7 +19,7 @@ import persistencia.consultas.Consultas;
 import persistencia.poolConexiones.Conexion;
 import persistencia.poolConexiones.IConexion;
 
-public class DAOMascotas {
+public class DAOMascotas implements IDAOMascotas {
 	
 private int cedDuenio;
 		
@@ -29,6 +29,7 @@ private int cedDuenio;
 	}
 	
     //Agrega la mascota a la BD
+	@Override
 	public void insback (IConexion con,Mascota masc) throws inscripcionException, ConectionException, PropertiesException
 	{
 		try
@@ -51,6 +52,7 @@ private int cedDuenio;
 		}
 	}
 	
+	@Override
 	public int largo (IConexion con) throws FileNotFoundException, IOException, ClassNotFoundException, ConectionException
 	{
 		try
@@ -74,6 +76,7 @@ private int cedDuenio;
 		}
 	}
 	
+	@Override
 	public Mascota kesimo (IConexion con, int numInsc) throws noExisteMascotaException
 	{
 		try
@@ -103,6 +106,7 @@ private int cedDuenio;
 		}
 	}
 	
+	@Override
 	public List<VOMascotaList> listarMascotas (IConexion con) throws noExisteMascotaException 
 	{
 		try
@@ -133,6 +137,7 @@ private int cedDuenio;
 		}
 	}
 	
+	@Override
 	public void borrarMascotas (IConexion con) throws  ConectionException
 	{
 		try
@@ -150,6 +155,7 @@ private int cedDuenio;
 		}
 	}
 	
+	@Override
 	public int contarMascotas (IConexion con, String raza) throws ConectionException
 	{
 		try
