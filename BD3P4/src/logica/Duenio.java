@@ -26,6 +26,7 @@ public class Duenio {
 	private String apellido;
 	
     private IDAOMascotas secuencia;
+    
 
 	public Duenio(int cedula, String nombre, String apellido) throws PersistenciaException  {
 		super();
@@ -42,7 +43,7 @@ public class Duenio {
 			this.cedula = cedula;
 			this.nombre = nombre;
 			this.apellido = apellido;
-			fabrica.crearIDAOMAscotas(cedula);
+			secuencia = fabrica.crearIDAOMAscotas(cedula);
 		} catch (IOException e) {
 			throw new PersistenciaException();
 		} catch (InstantiationException e) {

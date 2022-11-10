@@ -33,23 +33,24 @@ static IFachada fachada;
 			String ip = p.getProperty("ipServidor");
 			String puerto = p.getProperty("puertoServidor");
 			String ruta = "//" + ip + ":" + puerto + "/Fachada";
-			fachada =  (IFachada)Naming.lookup(ruta);
+			//fachada =  (IFachada)Naming.lookup(ruta);
 			
 			//Prueba Listar Duenios//
-			List<VODuenio> lista = fachada.listarDuenios();
-			System.out.println(lista.size());
+			//List<VODuenio> lista = fachada.listarDuenios();
+			//System.out.println(lista.size());
 			
 			//Prueba Nueva mascota*/
 			//fachada.nuevaMascota(1234567, new VOMascota("manchita","granDanes"));
 			//fachada.nuevoDuenio(new VODuenio(34444850,"Jose","Adrien"));
+			
 //************************para pruebas directas***************8//
     	    fachada = new FachadaForTest();
 			//List<VODuenio> lista = fachada.listarDuenios();
 			//System.out.println(lista.size());
-		    fachada.contarMascotas(32526363, "dasd");
+		    //fachada.contarMascotas(32526363, "dasd");
 		
     	    //fachada.listarMascotasDuenio(34444850);
-    	    fachada.obtenerMascota(32526363, 2);
+    	    fachada.obtenerMascota(32526363, 1);
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -57,10 +58,9 @@ static IFachada fachada;
 	} catch (PersistenciaException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-	} catch (NotBoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} 
+	
 	}
-
+	}
 }
+
+
