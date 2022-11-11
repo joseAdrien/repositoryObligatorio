@@ -46,7 +46,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 				p.load (new FileInputStream (nomArchi));
 				
 				nombreFabrica= p.getProperty("fabrica");
-				IFabricaAbstracta fabrica = (IFabricaAbstracta)Class.forName("persistencia.abstracta.FabricaMYSQL").newInstance();
+				IFabricaAbstracta fabrica = (IFabricaAbstracta)Class.forName(nombreFabrica).newInstance();
 				miDaoDuenios = fabrica.crearIDAODuenios();
 			    miPool= fabrica.crearIPoolConexiones();
 			   

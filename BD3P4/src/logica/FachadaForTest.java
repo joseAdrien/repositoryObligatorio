@@ -13,8 +13,10 @@ import logica.excepciones.nuevoDuenioException;
 import logica.valueObjects.VODuenio;
 import logica.valueObjects.VOMascota;
 import logica.valueObjects.VOMascotaList;
+import persistencia.abstracta.IFabricaAbstracta;
 import persistencia.daos.DAODuenios;
 import persistencia.daos.IDAODuenios;
+import persistencia.poolConexiones.ConexionArchivo;
 import persistencia.poolConexiones.IConexion;
 import persistencia.poolConexiones.IPoolConexiones;
 import persistencia.poolConexiones.PoolConexiones;
@@ -33,16 +35,19 @@ public class FachadaForTest  implements IFachada{
 	//Constructor
 	public FachadaForTest () throws   RemoteException, PersistenciaException{
 
-		 miDaoDuenios = new DAODuenios();
+		miDaoDuenios = new DAODuenios();
 		 Properties p = new Properties();
 		 	
 			try {
-				String nomArchi = "Config/config.properties";
-				
+			    String nomArchi = "Config/config.properties";
+				String nombreFabrica = "";
 				p.load (new FileInputStream (nomArchi));
-				poolConcreto = p.getProperty("driver");
-			    Class.forName(poolConcreto).newInstance();
-				miPool = new PoolConexiones();
+				
+				nombreFabrica= p.getProperty("fabrica");
+				IFabricaAbstracta fabrica = (IFabricaAbstracta)Class.forName(nombreFabrica).newInstance();
+				miDaoDuenios = fabrica.crearIDAODuenios();
+			    miPool= fabrica.crearIPoolConexiones();
+			   
 			
 			} catch (ClassNotFoundException e) {
 				throw new PersistenciaException();

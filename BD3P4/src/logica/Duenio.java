@@ -3,6 +3,7 @@ package logica;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Properties;
 
@@ -17,7 +18,9 @@ import persistencia.abstracta.IFabricaAbstracta;
 import persistencia.daos.IDAOMascotas;
 import persistencia.poolConexiones.IConexion;
 
-public class Duenio {
+public class Duenio implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	private int cedula;
 

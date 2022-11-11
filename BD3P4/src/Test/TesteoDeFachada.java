@@ -21,7 +21,7 @@ public class TesteoDeFachada {
 	
 static IFachada fachada;
 
-	public static void main(String[] args) throws RemoteException {
+	public static void main(String[] args) throws RemoteException, ConectionException {
 		// TODO Auto-generated method stub
        try {
     	   // ********************* para RMI************************
@@ -50,7 +50,10 @@ static IFachada fachada;
 		    //fachada.contarMascotas(32526363, "dasd");
 		
     	    //fachada.listarMascotasDuenio(34444850);
-    	    fachada.obtenerMascota(32526363, 1);
+    	    VODuenio duenio = new VODuenio(1234567,"juan","perez");
+    	    fachada.nuevoDuenio(duenio);
+    	    
+    	    fachada.listarDuenios() ;
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

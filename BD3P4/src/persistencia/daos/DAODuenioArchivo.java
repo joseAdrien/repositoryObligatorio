@@ -20,37 +20,28 @@ import persistencia.poolConexiones.IConexion;
 public class DAODuenioArchivo implements IDAODuenios {
 
 	@Override
+	//probado ok
 	public boolean member(IConexion con, int ced) throws PersistenciaException {
 		// TODO Auto-generated method stub
 		boolean existeCedula = false;
 		ConexionArchivo c = (ConexionArchivo)con;
-		String nomArch;
-		nomArch = c.getNomarchivo();
-		 // Abro el archivo y creo un flujo de comunicaci�n hacia �l
-			FileInputStream f;
-			try {
-				f = new FileInputStream(nomArch);
-				existeCedula = true;
-				f.close();
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				throw new PersistenciaException();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				throw new PersistenciaException();
+		String nomArch = "Config/Duenio-" + ced + ".txt";
+
 				
-			}			
-			
-			return existeCedula;
+		File archivo = new File(nomArch);
+		if (archivo.exists()) {
+			existeCedula = true;
+		}
+		return existeCedula;
 
 	}
 
 	@Override
+	//probado ok
 	public void insert(IConexion con, Duenio Due) throws PersistenciaException {
 		// TODO Auto-generated method stub
 		ConexionArchivo c = (ConexionArchivo)con;
-		String nomArch;
-		nomArch = c.getNomarchivo();
+		String nomArch = "Config/Duenio-" + Due.getCedula() + ".txt";
 		try	{ 
 			// Abro el archivo y creo un flujo de comunicaci�n hacia �l
 				FileOutputStream f = new FileOutputStream(nomArch);
@@ -72,8 +63,7 @@ public class DAODuenioArchivo implements IDAODuenios {
 		// TODO Auto-generated method stub
 		Duenio d;
 		ConexionArchivo c = (ConexionArchivo)con;
-		String nomArch;
-		nomArch = c.getNomarchivo();
+		String nomArch = "Config/Duenio-" + ced + ".txt";
 		try { 
 			 // Abro el archivo y creo un flujo de comunicaci�n hacia �l
 				FileInputStream f = new FileInputStream(nomArch);
@@ -98,8 +88,7 @@ public class DAODuenioArchivo implements IDAODuenios {
 	public void delete(IConexion con, int ced) throws noExisteDuenioException {
 		// TODO Auto-generated method stub
 		ConexionArchivo c = (ConexionArchivo)con;
-		String nomArch;
-		nomArch = c.getNomarchivo();
+		String nomArch = "Config/Duenio-" + ced + ".txt";
 		File f = new File (nomArch);
 		f.delete();
 
@@ -109,8 +98,7 @@ public class DAODuenioArchivo implements IDAODuenios {
 	public List<VODuenio> listarDuenios(IConexion con) throws PersistenciaException {
 		// TODO Auto-generated method stub
 		ConexionArchivo c = (ConexionArchivo)con;
-		String ruta;
-		ruta = c.getNomarchivo();
+		String ruta = "Config/";
 		List<VODuenio> lista = new ArrayList<VODuenio>() ;
 		try {
 		File file = new File (ruta);
@@ -124,7 +112,7 @@ public class DAODuenioArchivo implements IDAODuenios {
 		          File Arc = archivos[i];  
 	              if (archivos[i].getName().startsWith("Duenio")) {
 			  //crear duenio con datos del archivo y agregar a lista de VODuenios
-	            	  FileInputStream f = new FileInputStream(archivos[i].getName());
+	            	  FileInputStream f = new FileInputStream(ruta + archivos[i].getName());
 	            	  ObjectInputStream o = new ObjectInputStream(f);
 	            	  Duenio d;
 	            	  d =  (Duenio) o.readObject();

@@ -2,6 +2,7 @@ package persistencia.daos;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 
 import logica.Mascota;
@@ -12,7 +13,9 @@ import logica.excepciones.noExisteMascotaException;
 import logica.valueObjects.VOMascotaList;
 import persistencia.poolConexiones.IConexion;
 
-public class DAOMAscotasArchivo implements IDAOMascotas {
+public class DAOMAscotasArchivo implements IDAOMascotas,Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public void insback(IConexion con, Mascota masc)

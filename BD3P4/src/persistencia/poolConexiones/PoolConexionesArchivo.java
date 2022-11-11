@@ -16,6 +16,8 @@ public class PoolConexionesArchivo implements IPoolConexiones{
 
 	@Override
 	public IConexion obtenerConexion(boolean modifica) throws PersistenciaException {
+		IConexion con = null;
+		con = new ConexionArchivo();
 		if(modifica) {
 		//implementar escritor
 			comienzoEscritura();
@@ -23,7 +25,7 @@ public class PoolConexionesArchivo implements IPoolConexiones{
 			//implementar lector
 			comienzoLectura();
 		}
-		return null;
+		return con ;
 	}
 
 	@Override
