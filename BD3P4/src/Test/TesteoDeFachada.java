@@ -14,6 +14,7 @@ import logica.FachadaForTest;
 import logica.IFachada;
 import logica.excepciones.ConectionException;
 import logica.excepciones.PersistenciaException;
+import logica.excepciones.nuevoDuenioException;
 import logica.valueObjects.VODuenio;
 import logica.valueObjects.VOMascota;
 import logica.valueObjects.VOMascotaList;
@@ -51,15 +52,17 @@ static IFachada fachada;
 		    //fachada.contarMascotas(32526363, "dasd");
 		
     	    //fachada.listarMascotasDuenio(34444850);
-    	    //VODuenio duenio = new VODuenio(1234567,"juan","perez");
-    	    //fachada.nuevoDuenio(duenio);
+    	    VODuenio duenio = new VODuenio(1234567,"juan","perez");
+    	    fachada.nuevoDuenio(duenio);
+    	    VODuenio duenio2 = new VODuenio(1234567,"juan","perez");
+    	    fachada.nuevoDuenio(duenio);
     	    //fachada.nuevaMascota(123456, new VOMascota("pelotita","guardian"));
     	    //int cantidad = fachada.contarMascotas(123456, "guardian");
     	    //VOMascota m = fachada.obtenerMascota(12345679, 7);
     	   // List<VOMascotaList> l = fachada.listarMascotasDuenio(1234567);
-    	    fachada.listarMascotasDuenio(123123);
-    	    fachada.borrarDuenioMascotas(1234567);
-int a = 0;
+    	   // fachada.listarMascotasDuenio(123123);
+    	    //fachada.borrarDuenioMascotas(1234567);
+
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -68,8 +71,12 @@ int a = 0;
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	
+	}catch (nuevoDuenioException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	
 	}
-	}
+}
 }
 
 

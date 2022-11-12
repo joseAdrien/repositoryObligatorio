@@ -1,6 +1,8 @@
 package logica.excepciones;
 
-public class nuevoDuenioException extends Exception{
+import java.io.Serializable;
+
+public class nuevoDuenioException extends Exception implements Serializable{
 	
 	//Agrego esto automáticamente
 	private static final long serialVersionUID = 1L;

@@ -74,6 +74,7 @@ public class NuevoDuenioControlador {
 		}catch (ConectionException e) {
 			throw new ConectionException();
 		}
+		
 	}
 }
 

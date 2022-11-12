@@ -71,7 +71,7 @@ public class FachadaForTest  implements IFachada{
 	//Requerimientos
 		//Registrar un nuevo Dueño
 		//ALE
-	public void nuevoDuenio (VODuenio duenio) throws RemoteException, PersistenciaException {
+	public void nuevoDuenio (VODuenio duenio) throws RemoteException, PersistenciaException, nuevoDuenioException {
 			
 		try {
 				
@@ -81,7 +81,10 @@ public class FachadaForTest  implements IFachada{
 			if(!existe) {
 				Duenio d = new Duenio(duenio.getCedula(),duenio.getNombre(),duenio.getApellido());
                 miDaoDuenios.insert(icon, d);
-			}
+			}//else {
+			//	miPool.liberarConexion(icon, false);
+			//	throw new nuevoDuenioException();
+			//}
 		
 		} catch (noExisteDuenioException e) {
 			miPool.liberarConexion(icon, false);
@@ -89,7 +92,7 @@ public class FachadaForTest  implements IFachada{
 			
 		} catch (nuevoDuenioException e) {
 			miPool.liberarConexion(icon, false);
-			throw new PersistenciaException();
+			throw new nuevoDuenioException();
 			
 		} finally {
 			miPool.liberarConexion(icon, true);

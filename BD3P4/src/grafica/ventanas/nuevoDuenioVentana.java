@@ -161,7 +161,11 @@ public class nuevoDuenioVentana {
 					} catch (PersistenciaException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-					} 
+					} finally{
+						textFieldCed.setText(null);
+						textFieldApe.setText(null);
+						textFieldNom.setText(null);
+					}
 				}
 			}
 		});

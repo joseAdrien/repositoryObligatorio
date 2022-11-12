@@ -71,8 +71,8 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 	}
 	
 
-		//ALE Listo
-	public void nuevoDuenio (VODuenio duenio) throws RemoteException, PersistenciaException {
+		
+	public void nuevoDuenio (VODuenio duenio) throws RemoteException, PersistenciaException,nuevoDuenioException {
 			
 		try {
 				
@@ -90,7 +90,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 			
 		} catch (nuevoDuenioException e) {
 			miPool.liberarConexion(icon, false);
-			throw new PersistenciaException();
+			throw new nuevoDuenioException();
 			
 		} finally {
 			miPool.liberarConexion(icon, true);
