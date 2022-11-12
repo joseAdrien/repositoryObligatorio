@@ -57,6 +57,7 @@ static IFachada fachada;
     	    //int cantidad = fachada.contarMascotas(123456, "guardian");
     	    //VOMascota m = fachada.obtenerMascota(12345679, 7);
     	   // List<VOMascotaList> l = fachada.listarMascotasDuenio(1234567);
+    	    fachada.listarMascotasDuenio(123123);
     	    fachada.borrarDuenioMascotas(1234567);
 int a = 0;
 	} catch (IOException e) {

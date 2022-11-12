@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -156,7 +157,7 @@ public class FachadaForTest  implements IFachada{
 	//NL
 	//Listar todos los duenios
 	public List<VODuenio> listarDuenios() throws RemoteException, PersistenciaException {
-		List<VODuenio> duenios = null;
+		List<VODuenio> duenios = new ArrayList<VODuenio>();
 		try {	
 			
 			icon = miPool.obtenerConexion(false);
@@ -182,7 +183,7 @@ public class FachadaForTest  implements IFachada{
 	//Listar todas las mascotas de un duenio
 	public List<VOMascotaList> listarMascotasDuenio(int cedula) throws RemoteException,  PersistenciaException{
 
-		List<VOMascotaList> mascotas = null;
+		List<VOMascotaList> mascotas = new ArrayList<VOMascotaList>();
 		try {
 			
 			boolean existe = false;

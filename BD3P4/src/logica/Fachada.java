@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -157,7 +158,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 	//NL listo
 	//Listar todos los duenios
 	public List<VODuenio> listarDuenios() throws RemoteException, PersistenciaException {
-		List<VODuenio> duenios = null;
+		List<VODuenio> duenios = new ArrayList<VODuenio>();
 		try {	
 			
 			icon = miPool.obtenerConexion(false);
@@ -184,7 +185,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 	//Listo
 	public List<VOMascotaList> listarMascotasDuenio(int cedula) throws RemoteException,  PersistenciaException{
 
-		List<VOMascotaList> mascotas = null;
+		List<VOMascotaList> mascotas = new ArrayList<VOMascotaList>();
 		try {
 			
 			boolean existe = false;
