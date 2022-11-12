@@ -11,6 +11,7 @@ import java.util.List;
 
 import logica.Mascota;
 import logica.excepciones.ConectionException;
+import logica.excepciones.PersistenciaException;
 import logica.excepciones.PropertiesException;
 import logica.excepciones.inscripcionException;
 import logica.excepciones.noExisteMascotaException;
@@ -30,7 +31,7 @@ private int cedDuenio;
 	
     //Agrega la mascota a la BD
 	@Override
-	public void insback (IConexion con,Mascota masc) throws inscripcionException, ConectionException, PropertiesException
+	public void insback (IConexion con,Mascota masc) throws   PersistenciaException
 	{
 		try
 		{
@@ -48,12 +49,12 @@ private int cedDuenio;
 
 		}
 		catch (SQLException e) {
-			throw new inscripcionException();
+			throw new PersistenciaException();
 		}
 	}
 	
 	@Override
-	public int largo (IConexion con) throws FileNotFoundException, IOException, ClassNotFoundException, ConectionException
+	public int largo (IConexion con) throws PersistenciaException
 	{
 		try
 		{
@@ -72,12 +73,12 @@ private int cedDuenio;
 			return cantidad;
 		}
 		catch (SQLException e) {
-			throw new ConectionException();
+			throw new PersistenciaException();
 		}
 	}
 	
 	@Override
-	public Mascota kesimo (IConexion con, int numInsc) throws noExisteMascotaException
+	public Mascota kesimo (IConexion con, int numInsc) throws PersistenciaException
 	{
 		try
 		{
@@ -102,12 +103,12 @@ private int cedDuenio;
 			return mas;
 		}
 		catch (SQLException e) {
-			throw new noExisteMascotaException();
+			throw new PersistenciaException();
 		}
 	}
 	
 	@Override
-	public List<VOMascotaList> listarMascotas (IConexion con) throws noExisteMascotaException 
+	public List<VOMascotaList> listarMascotas (IConexion con) throws PersistenciaException 
 	{
 		try
 		{
@@ -133,7 +134,7 @@ private int cedDuenio;
 			return lista;
 		}
 		catch (SQLException e) {
-			throw new noExisteMascotaException();
+			throw new PersistenciaException();
 		}
 	}
 	
@@ -156,7 +157,7 @@ private int cedDuenio;
 	}
 	
 	@Override
-	public int contarMascotas (IConexion con, String raza) throws ConectionException
+	public int contarMascotas (IConexion con, String raza) throws PersistenciaException
 	{
 		try
 		{
@@ -175,7 +176,7 @@ private int cedDuenio;
 			return cont;
 		}
 		catch (SQLException e) {
-			throw new ConectionException();
+			throw new PersistenciaException();
 		}
 	}
 

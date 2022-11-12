@@ -93,14 +93,9 @@ public class Duenio implements Serializable{
 		boolean tiene = false;
 		Mascota aux = null;
 		
-		try {
-			aux = secuencia.kesimo(icon, numInsc);
-			if (aux != null)
-				tiene = true;
-			
-		} catch (noExisteMascotaException e) {
-			throw new PersistenciaException();
-		}
+		aux = secuencia.kesimo(icon, numInsc);
+		if (aux != null)
+			tiene = true;
 		
 		
 		return tiene;
@@ -110,22 +105,14 @@ public class Duenio implements Serializable{
 		//llamar a largo de dao mascotas;
 		
 		int aux =0;
-		try {
-			aux = secuencia.largo(icon);
-		} catch (ClassNotFoundException | IOException | ConectionException e) {
-			throw new PersistenciaException();
-		}
+		aux = secuencia.largo(icon);
 		return aux;
 	}
 	
 	public void agregarMascota(IConexion icon,Mascota masc) throws PersistenciaException{
 		//llamar insback de DAO MAscotas
 		
-		try {
-			secuencia.insback(icon, masc);
-		} catch (inscripcionException | ConectionException | PropertiesException e) {
-			throw new PersistenciaException();
-		}
+		secuencia.insback(icon, masc);
 	}
 	
 	@SuppressWarnings("null")
@@ -135,27 +122,18 @@ public class Duenio implements Serializable{
 		Mascota aux = null;
 		VOMascota aux2 = null;
 		
-		try {
-			aux = secuencia.kesimo(icon, numInsc);
-			if(aux != null) { 
-				aux2 = new VOMascota(aux.getApodo(),aux.getRaza());
-			}
-			
-		} catch (noExisteMascotaException e) {
-			throw new PersistenciaException();
+		aux = secuencia.kesimo(icon, numInsc);
+		if(aux != null) { 
+			aux2 = new VOMascota(aux.getApodo(),aux.getRaza());
 		}
 		
 		return aux2;
 	}
-	//FEDE deberia pasarle el id del duenio
+
 	public List<VOMascotaList> listarMAscotas(IConexion icon) throws PersistenciaException{
 		//llamar al listarMAscotas de daoduenio;
 		List<VOMascotaList> lista = null ;
-		try {
-			lista = secuencia.listarMascotas(icon);
-		} catch (noExisteMascotaException e) {
-			throw new PersistenciaException();
-		}
+		lista = secuencia.listarMascotas(icon);
 		return lista;
 	}
 	
@@ -173,11 +151,7 @@ public class Duenio implements Serializable{
 	public int contarMascotas(IConexion icon, String raza) throws PersistenciaException {
 		//llamar a contar mascotas de dao mascotas
 		int aux = 0;
-		try {
-			aux = secuencia.contarMascotas(icon, raza);
-		} catch (ConectionException e) {
-			throw new PersistenciaException();
-		}
+		aux = secuencia.contarMascotas(icon, raza);
 		return aux;
 	}
 }

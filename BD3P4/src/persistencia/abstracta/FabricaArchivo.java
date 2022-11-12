@@ -21,7 +21,7 @@ public class FabricaArchivo implements IFabricaAbstracta {
 	}
 
 	@Override
-	public IDAOMascotas crearIDAOMAscotas(int ced) {
-		return new DAOMAscotasArchivo();
+	public IDAOMascotas crearIDAOMAscotas(int ced ) {
+		return new DAOMAscotasArchivo(ced);
 	}
 }

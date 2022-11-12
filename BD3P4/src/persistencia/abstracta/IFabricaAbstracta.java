@@ -11,4 +11,5 @@ public interface IFabricaAbstracta {
 	
 	public IPoolConexiones crearIPoolConexiones() throws PersistenciaException;
 	public IDAOMascotas crearIDAOMAscotas(int ced);
+
 }
