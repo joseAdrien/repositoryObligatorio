@@ -82,7 +82,10 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 			if(!existe) {
 				Duenio d = new Duenio(duenio.getCedula(),duenio.getNombre(),duenio.getApellido());
                 miDaoDuenios.insert(icon, d);
-			}
+			}//else{
+			//	throw new nuevoDuenioException();
+			//}
+			
 		
 		} catch (noExisteDuenioException e) {
 			miPool.liberarConexion(icon, false);
@@ -90,7 +93,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 			
 		} catch (nuevoDuenioException e) {
 			miPool.liberarConexion(icon, false);
-			throw new nuevoDuenioException();
+			throw e;
 			
 		} finally {
 			miPool.liberarConexion(icon, true);
@@ -98,7 +101,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 		
 	}
 		
-	//JOSE listo
+
 	public void nuevaMascota(int cedula, VOMascota mascota) throws RemoteException, PersistenciaException {
 		
 			
@@ -130,8 +133,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 			
 	}
 				
-	//NL listo
-	//Borrar dueño luego de borrar sus mascotas
+
 	public void borrarDuenioMascotas(int cedula) throws RemoteException, PersistenciaException  {
 		try {	
 			Duenio duenio = null;
@@ -155,8 +157,8 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 		}
 		
 	}	
-	//NL listo
-	//Listar todos los duenios
+
+
 	public List<VODuenio> listarDuenios() throws RemoteException, PersistenciaException {
 		List<VODuenio> duenios = new ArrayList<VODuenio>();
 		try {	
@@ -181,8 +183,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 		
 	}
 	
-	//Listar todas las mascotas de un duenio
-	//Listo
+
 	public List<VOMascotaList> listarMascotasDuenio(int cedula) throws RemoteException,  PersistenciaException{
 
 		List<VOMascotaList> mascotas = new ArrayList<VOMascotaList>();
@@ -215,8 +216,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 	}
 	
 	
-	//Obtener una mascota
-	//Listo
+
 	public VOMascota obtenerMascota(int cedula, int numero) throws RemoteException,  PersistenciaException{
 		VOMascota voMascota = null;
 		try {
@@ -245,8 +245,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{//jose
 		}
 	}	
 	
-	//Obtener la cantidad de mascotas de un dueño segun raza
-	//Listo
+
 	public int contarMascotas(int cedula, String raza) throws RemoteException,  PersistenciaException{
       
 		int cantidadMascotas = 0;
